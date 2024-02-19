@@ -25,56 +25,84 @@ public class Main {
         return managerNotified;
     }
 
-    private void checkPressure() {
+    public boolean isInformedMaintenanceTeam() {
+        return informedMaintenanceTeam;
+    }
 
-        // Critical minimum value
+    public boolean isAlarmTriggered() {
+        return alarmTriggered;
+    }
+
+    public boolean isEvacuation() {
+        return evacuation;
+    }
+
+    private void checkMinValue() {
         if (pressure < 50) {
             acousticSignalTriggered = true;
             managerNotified = true;
             informedMaintenanceTeam = false;
             alarmTriggered = false;
             evacuation = false;
+        }
+    }
 
-            // Critical maximum value
-        } else if (pressure > 300) {
+    private void checkMaxValue() {
+        if (pressure > 300) {
             acousticSignalTriggered = true;
             managerNotified = true;
             informedMaintenanceTeam = true;
             alarmTriggered = false;
             evacuation = false;
+        }
+    }
 
-            // Optimal value
-        } else if (pressure > 180 && pressure < 220) {
+    private void checkOptimalValue() {
+        if (pressure > 180 && pressure < 220) {
             acousticSignalTriggered = false;
             managerNotified = false;
             informedMaintenanceTeam = false;
             alarmTriggered = false;
             evacuation = false;
+        }
+    }
 
-            // Underpressure
-        } else if (pressure >= 50 && pressure <= 180) {
+    private void checkUnderpressure() {
+        if (pressure >= 50 && pressure <= 180) {
             acousticSignalTriggered = false;
             managerNotified = true;
             informedMaintenanceTeam = true;
             alarmTriggered = false;
             evacuation = false;
+        }
+    }
 
-            // Overpressure
-        } else if (pressure >= 220 && pressure <= 300) {
+    private void checkOverpressure() {
+        if (pressure >= 220 && pressure <= 300) {
             acousticSignalTriggered = false;
             managerNotified = true;
             informedMaintenanceTeam = true;
             alarmTriggered = false;
             evacuation = false;
+        }
+    }
 
-            // Dangerous value
-        } else if (pressure > 500) {
+    private void checkDangerousValue() {
+        if (pressure > 500) {
             acousticSignalTriggered = false;
             managerNotified = false;
             informedMaintenanceTeam = false;
             alarmTriggered = true;
             evacuation = true;
-
         }
+    }
+
+    private void checkPressure() {
+        checkMinValue();
+        checkMaxValue();
+        checkOptimalValue();
+        checkUnderpressure();
+        checkOverpressure();
+        checkDangerousValue();
     }
 }

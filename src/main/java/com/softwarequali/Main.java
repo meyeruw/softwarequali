@@ -67,7 +67,7 @@ public class Main {
         }
     }
 
-    private void checkUnderpressure() {
+    private void checkLowPressure() {
         if (pressure >= 50 && pressure <= 180) {
             acousticSignalTriggered = false;
             managerNotified = true;
@@ -77,7 +77,7 @@ public class Main {
         }
     }
 
-    private void checkOverpressure() {
+    private void checkHighPressure() {
         if (pressure >= 220 && pressure <= 300) {
             acousticSignalTriggered = false;
             managerNotified = true;
@@ -101,8 +101,8 @@ public class Main {
         checkMinValue();
         checkMaxValue();
         checkOptimalValue();
-        checkUnderpressure();
-        checkOverpressure();
+        checkLowPressure();
+        checkHighPressure();
         checkDangerousValue();
     }
 }

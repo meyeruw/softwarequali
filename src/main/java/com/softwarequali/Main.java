@@ -1,39 +1,32 @@
 package com.softwarequali;
 
 public class Main {
-    private int druck;
-    private boolean akustischesSignalAusgeloest;
-    private boolean betriebsfuehrerBenachrichtigt;
+    private int pressure;
+    private boolean acousticSignalTriggered;
+    private boolean managerNotified;
 
-    public static void main(String[] args) {
-        System.out.println(sayHello());
-    }
-    public static String sayHello() {
-        return "Hello world!";
+    public void setPressure(int pressure) {
+        this.pressure = pressure;
+        checkPressure();
     }
 
-    public void setDruck(int druck) {
-        this.druck = druck;
-        ueberpruefeDruck();
+    public boolean isAcousticSignalTriggered() {
+        return acousticSignalTriggered;
     }
 
-    public boolean isAkustischesSignalAusgeloest() {
-        return akustischesSignalAusgeloest;
+    public boolean isManagerNotified() {
+        return managerNotified;
     }
 
-    public boolean isBetriebsfuehrerBenachrichtigt() {
-        return betriebsfuehrerBenachrichtigt;
-    }
-
-    private void ueberpruefeDruck() {
-        if (druck < 50) {
-            // Kritischer Minimalwert erreicht
-            akustischesSignalAusgeloest = true;
-            betriebsfuehrerBenachrichtigt = true;
+    private void checkPressure() {
+        if (pressure < 50) {
+            // Critical minimum value reached
+            acousticSignalTriggered = true;
+            managerNotified = true;
         } else {
-            // Zurücksetzen der Zustände
-            akustischesSignalAusgeloest = false;
-            betriebsfuehrerBenachrichtigt = false;
+            // Resetting states
+            acousticSignalTriggered = false;
+            managerNotified = false;
         }
     }
 }

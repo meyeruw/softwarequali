@@ -14,21 +14,27 @@ public class MainTest {
     @Test
     public void testMinimumPressureValue() {
         Main main = new Main();
-        main.setPressure(47);
+        main.setPressure(51);
+        main.setPressure(49);
         assertTrue(main.isLogInitialized());
-        main.setPressure(46);
         assertTrue(main.isAcousticSignalTriggered());
         assertTrue(main.isManagerNotified());  
         assertFalse(main.isMaintenanceTeamInformed());
         assertFalse(main.isAlarmTriggered());
         assertFalse(main.isEvacuation());
+        main.setPressure(47);
         assertFalse(main.isLogInitialized());
+        
     }
 
     @Test
     public void testMaximumPressureValue() {
         Main main = new Main();
-        main.setPressure(307);
+        main.setPressure(298);
+        assertTrue(main.isLogInitialized());
+        main.setPressure(302);
+        assertTrue(main.isLogInitialized());
+        main.setPressure(303);
         assertTrue(main.isAcousticSignalTriggered());
         assertTrue(main.isManagerNotified());  
         assertTrue(main.isMaintenanceTeamInformed());
@@ -109,6 +115,6 @@ public class MainTest {
         Main main = new Main();
         String logMessage = "Test log message";
         String response = main.sendLogToServer(logMessage);
-        assertEquals("Log sent to server: " + logMessage, response, "Unexpected response from server");
+        assertEquals("Server received the following message: " + logMessage, response, "Unexpected response from server");
     }
 }

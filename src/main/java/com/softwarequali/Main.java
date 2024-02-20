@@ -5,8 +5,8 @@ public class Main {
         System.out.println("Hello World!");
     }
 
-    private double pressure = 200.0;
-    private double voltage = 5.5;
+    private double pressure = 200;
+    private double voltage = 7;
     private String currentValueRange = "optimal";
     private boolean acousticSignalTriggered = false;
     private boolean managerNotified = false;
@@ -14,7 +14,6 @@ public class Main {
     private boolean alarmTriggered = false;
     private boolean evacuation = false;
     private boolean logInitialized = false;
-    
 
     // pressure gets updated in real time
     public void setPressure(double pressureSensorValue) {
@@ -23,7 +22,7 @@ public class Main {
         checkPressure();
     }
 
-    //voltage gets updated in real time
+    // voltage gets updated in real time
     public void setVoltage(double voltageSensorValue) {
         // voltage value from sensor
         this.voltage = voltageSensorValue;
@@ -55,10 +54,10 @@ public class Main {
     }
 
     public void setValueRange(String newValueRange) {
-        if (!currentValueRange.equals(newValueRange)){
+        if (!currentValueRange.equals(newValueRange)) {
             currentValueRange = newValueRange;
             String serverAnswer = sendLogToServer(newValueRange + " pressure value detected");
-            if (serverAnswer.contains("sent to server")) {
+            if (serverAnswer.contains("Server received")) {
                 logInitialized = true;
             } else {
                 logInitialized = false;
@@ -68,107 +67,101 @@ public class Main {
         }
     }
 
-    private void checkMinValue() {
-        if (pressure < 50) {
-            System.out.println("Pressure is too low");
-            acousticSignalTriggered = true;
-            managerNotified = true;
-            maintenanceTeamInformed = false;
-            alarmTriggered = false;
-            evacuation = false;
-            setValueRange("minimum");
-        }
+    private void minValue() {
+        System.out.println("Pressure is too low");
+        acousticSignalTriggered = true;
+        managerNotified = true;
+        maintenanceTeamInformed = false;
+        alarmTriggered = false;
+        evacuation = false;
+        setValueRange("minimum");
     }
 
-    private void checkMaxValue() {
-        if (pressure > 300 && pressure < 500) {
-            System.out.println("Pressure is too high");
-            acousticSignalTriggered = true;
-            managerNotified = true;
-            maintenanceTeamInformed = true;
-            alarmTriggered = false;
-            evacuation = false;
-            setValueRange("maximum");
-        }
+    private void maxValue() {
+        System.out.println("Pressure is too high");
+        acousticSignalTriggered = true;
+        managerNotified = true;
+        maintenanceTeamInformed = true;
+        alarmTriggered = false;
+        evacuation = false;
+        setValueRange("maximum");
     }
 
-    private void checkOptimalValue() {
-        if (pressure > 180 && pressure < 220) {
-            System.out.println("Pressure is optimal");
-            acousticSignalTriggered = false;
-            managerNotified = false;
-            maintenanceTeamInformed = false;
-            alarmTriggered = false;
-            evacuation = false;
-            setValueRange("optimal");
-        }
+    private void optimalValue() {
+        System.out.println("Pressure is optimal");
+        acousticSignalTriggered = false;
+        managerNotified = false;
+        maintenanceTeamInformed = false;
+        alarmTriggered = false;
+        evacuation = false;
+        setValueRange("optimal");
     }
 
-    private void checkLowPressure() {
-        if (pressure >= 50 && pressure <= 180) {
-            System.out.println("Pressure is low");
-            acousticSignalTriggered = false;
-            managerNotified = true;
-            maintenanceTeamInformed = true;
-            alarmTriggered = false;
-            evacuation = false;
-            setValueRange("low");
-        }
+    private void lowPressure() {
+        System.out.println("Pressure is low");
+        acousticSignalTriggered = false;
+        managerNotified = true;
+        maintenanceTeamInformed = true;
+        alarmTriggered = false;
+        evacuation = false;
+        setValueRange("low");
     }
 
-    private void checkHighPressure() {
-        if (pressure >= 220 && pressure <= 300) {
-            System.out.println("Pressure is high");
-            acousticSignalTriggered = false;
-            managerNotified = true;
-            maintenanceTeamInformed = true;
-            alarmTriggered = false;
-            evacuation = false;
-            setValueRange("high");
-        }
+    private void highPressure() {
+        System.out.println("Pressure is high");
+        acousticSignalTriggered = false;
+        managerNotified = true;
+        maintenanceTeamInformed = true;
+        alarmTriggered = false;
+        evacuation = false;
+        setValueRange("high");
     }
 
-    private void checkDangerousValue() {
-        if (pressure >= 500) {
-            System.out.println("Pressure is dangerous");
-            acousticSignalTriggered = false;
-            managerNotified = false;
-            maintenanceTeamInformed = false;
-            alarmTriggered = true;
-            evacuation = true;
-            setValueRange("dangerous");
-        }
+    private void dangerousValue() {
+        System.out.println("Pressure is dangerous");
+        acousticSignalTriggered = false;
+        managerNotified = false;
+        maintenanceTeamInformed = false;
+        alarmTriggered = true;
+        evacuation = true;
+        setValueRange("dangerous");
     }
 
     private void checkPressure() {
-        checkMinValue();
-        checkMaxValue();
-        checkOptimalValue();
-        checkLowPressure();
-        checkHighPressure();
-        checkDangerousValue();
-        checkLowVoltageValue();
+        if (pressure > 500) {
+            dangerousValue();
+        } else if (pressure > 300) {
+            maxValue();
+        } else if (pressure >= 220) {
+            highPressure();
+        } else if (pressure > 180) {
+            optimalValue();
+        } else if (pressure >= 50) {
+            lowPressure();
+        } else {
+            minValue();
+        }
     }
 
     private void checkVoltage() {
-        checkLowVoltageValue();
+        if (voltage < 5.0) {
+            lowVoltageValue();
+        }
     }
 
-    private void checkLowVoltageValue() {
-        if (voltage < 5.0) {
-            acousticSignalTriggered = true;
-            managerNotified = false;
-            maintenanceTeamInformed = false;
-            alarmTriggered = false;
-            evacuation = false;
-        }
+    private void lowVoltageValue() {
+        acousticSignalTriggered = true;
+        managerNotified = false;
+        maintenanceTeamInformed = false;
+        alarmTriggered = false;
+        evacuation = false;
     }
 
     public String sendLogToServer(String logMessage) {
         try {
             // Simulate network delay
             Thread.sleep(4);
-            return "Log sent to server: " + logMessage;
+            return "Server received the following message: " + logMessage;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);

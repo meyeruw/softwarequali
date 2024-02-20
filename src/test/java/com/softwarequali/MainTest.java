@@ -1,9 +1,13 @@
 package com.softwarequali;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.concurrent.TimeUnit;
 
 public class MainTest {
 
@@ -91,7 +95,20 @@ public class MainTest {
     @Test
     public void testLogInitialized() {
         Main main = new Main();
-        main.setValueRange("low");
+        main.setPressure(181);
+        assertFalse(main.isLogInitialized());
+        main.setPressure(179);
         assertTrue(main.isLogInitialized());
+        main.setPressure(177);
+        assertFalse(main.isLogInitialized());
+    }
+
+    @Test
+    @Timeout(value = 10, unit = TimeUnit.MILLISECONDS)
+    public void testSendLogToServer() {
+        Main main = new Main();
+        String logMessage = "Test log message";
+        String response = main.sendLogToServer(logMessage);
+        assertEquals("Log sent to server: " + logMessage, response, "Unexpected response from server");
     }
 }

@@ -57,7 +57,12 @@ public class Main {
     public void setValueRange(String newValueRange) {
         if (!currentValueRange.equals(newValueRange)){
             currentValueRange = newValueRange;
-            logInitialized = true;
+            String serverAnswer = sendLogToServer(newValueRange + " pressure value detected");
+            if (serverAnswer.contains("sent to server")) {
+                logInitialized = true;
+            } else {
+                logInitialized = false;
+            }
         } else {
             logInitialized = false;
         }
@@ -156,6 +161,17 @@ public class Main {
             maintenanceTeamInformed = false;
             alarmTriggered = false;
             evacuation = false;
+        }
+    }
+
+    public String sendLogToServer(String logMessage) {
+        try {
+            // Simulate network delay
+            Thread.sleep(4);
+            return "Log sent to server: " + logMessage;
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
         }
     }
 }

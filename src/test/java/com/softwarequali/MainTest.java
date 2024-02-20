@@ -11,11 +11,14 @@ public class MainTest {
     public void testMinimumPressureValue() {
         Main main = new Main();
         main.setPressure(47);
+        assertTrue(main.isLogInitialized());
+        main.setPressure(46);
         assertTrue(main.isAcousticSignalTriggered());
         assertTrue(main.isManagerNotified());  
         assertFalse(main.isMaintenanceTeamInformed());
         assertFalse(main.isAlarmTriggered());
         assertFalse(main.isEvacuation());
+        assertFalse(main.isLogInitialized());
     }
 
     @Test

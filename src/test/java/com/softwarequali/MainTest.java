@@ -22,42 +22,40 @@ public class MainTest {
         assertFalse(main.isMaintenanceTeamInformed());
         assertFalse(main.isAlarmTriggered());
         assertFalse(main.isEvacuation());
-        main.setPressure(47);
-        assertFalse(main.isLogInitialized());
-        
     }
 
     @Test
     public void testMaximumPressureValue() {
         Main main = new Main();
         main.setPressure(298);
-        assertTrue(main.isLogInitialized());
         main.setPressure(302);
         assertTrue(main.isLogInitialized());
-        main.setPressure(303);
         assertTrue(main.isAcousticSignalTriggered());
         assertTrue(main.isManagerNotified());  
         assertTrue(main.isMaintenanceTeamInformed());
         assertFalse(main.isAlarmTriggered());
-        assertFalse(main.isEvacuation());
+        assertFalse(main.isEvacuation());        
     }
 
     @Test
     public void testOptimalPressureValue() {
         Main main = new Main();
-        main.setPressure(207);
+        main.setPressure(179);
+        main.setPressure(181);
+        assertTrue(main.isLogInitialized());
         assertFalse(main.isAcousticSignalTriggered());
         assertFalse(main.isManagerNotified());  
         assertFalse(main.isMaintenanceTeamInformed());
         assertFalse(main.isAlarmTriggered());
         assertFalse(main.isEvacuation());
-        assertFalse(main.isLogInitialized());
     }
 
     @Test
     public void testLowPressureValue() {
         Main main = new Main();
-        main.setPressure(107);
+        main.setPressure(181);
+        main.setPressure(179);
+        assertTrue(main.isLogInitialized());
         assertFalse(main.isAcousticSignalTriggered());
         assertTrue(main.isManagerNotified());  
         assertTrue(main.isMaintenanceTeamInformed());
@@ -68,7 +66,9 @@ public class MainTest {
     @Test
     public void testHighPressureValue() {
         Main main = new Main();
-        main.setPressure(277);
+        main.setPressure(219);
+        main.setPressure(221);
+        assertTrue(main.isLogInitialized());
         assertFalse(main.isAcousticSignalTriggered());
         assertTrue(main.isManagerNotified());  
         assertTrue(main.isMaintenanceTeamInformed());
@@ -79,7 +79,9 @@ public class MainTest {
     @Test
     public void testDangerousPressureValue() {
         Main main = new Main();
-        main.setPressure(507);
+        main.setPressure(499);
+        main.setPressure(501);
+        assertTrue(main.isLogInitialized());
         assertFalse(main.isAcousticSignalTriggered());
         assertFalse(main.isManagerNotified());  
         assertFalse(main.isMaintenanceTeamInformed());
@@ -117,4 +119,8 @@ public class MainTest {
         String response = main.sendLogToServer(logMessage);
         assertEquals("Server received the following message: " + logMessage, response, "Unexpected response from server");
     }
+
+    // test for the case when the server is not available
+
+    // test if we only send the log to the server once when the value range changes
 }

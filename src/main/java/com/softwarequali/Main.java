@@ -5,16 +5,33 @@ public class Main {
         System.out.println("Hello World!");
     }
 
-    private int pressure;
-    private boolean acousticSignalTriggered;
-    private boolean managerNotified;
-    private boolean informedMaintenanceTeam;
-    private boolean alarmTriggered;
-    private boolean evacuation;
+    private double pressure = 0.0;
+    private double voltage = 0.0;
+    private String currentValueRange = "optimal";
+    private boolean acousticSignalTriggered = false;
+    private boolean managerNotified = false;
+    private boolean maintenanceTeamInformed = false;
+    private boolean alarmTriggered = false;
+    private boolean evacuation = false;
+    private boolean logInitialized = false;
+    
 
-    public void setPressure(int pressure) {
-        this.pressure = pressure;
+    // pressure gets updated in real time
+    public void setPressure(double pressureSensorValue) {
+        // pressure value from sensor
+        this.pressure = pressureSensorValue;
         checkPressure();
+    }
+
+    //voltage gets updated in real time
+    public void setVoltage(double voltageSensorValue) {
+        // voltage value from sensor
+        this.voltage = voltageSensorValue;
+        checkVoltage();
+    }
+
+    public boolean isLogInitialized() {
+        return logInitialized;
     }
 
     public boolean isAcousticSignalTriggered() {
@@ -25,8 +42,8 @@ public class Main {
         return managerNotified;
     }
 
-    public boolean isInformedMaintenanceTeam() {
-        return informedMaintenanceTeam;
+    public boolean isMaintenanceTeamInformed() {
+        return maintenanceTeamInformed;
     }
 
     public boolean isAlarmTriggered() {
@@ -37,23 +54,34 @@ public class Main {
         return evacuation;
     }
 
+    public void setValueRange(String newValueRange) {
+        if (currentValueRange != newValueRange) {
+            currentValueRange = newValueRange;
+            logInitialized = true;
+        } else {
+            logInitialized = false;
+        }
+    }
+
     private void checkMinValue() {
         if (pressure < 50) {
             acousticSignalTriggered = true;
             managerNotified = true;
-            informedMaintenanceTeam = false;
+            maintenanceTeamInformed = false;
             alarmTriggered = false;
             evacuation = false;
+            setValueRange("minimum");
         }
     }
 
     private void checkMaxValue() {
-        if (pressure > 300) {
+        if (pressure > 300 && pressure < 500) {
             acousticSignalTriggered = true;
             managerNotified = true;
-            informedMaintenanceTeam = true;
+            maintenanceTeamInformed = true;
             alarmTriggered = false;
             evacuation = false;
+            setValueRange("maximum");
         }
     }
 
@@ -61,9 +89,10 @@ public class Main {
         if (pressure > 180 && pressure < 220) {
             acousticSignalTriggered = false;
             managerNotified = false;
-            informedMaintenanceTeam = false;
+            maintenanceTeamInformed = false;
             alarmTriggered = false;
             evacuation = false;
+            setValueRange("optimal");
         }
     }
 
@@ -71,9 +100,10 @@ public class Main {
         if (pressure >= 50 && pressure <= 180) {
             acousticSignalTriggered = false;
             managerNotified = true;
-            informedMaintenanceTeam = true;
+            maintenanceTeamInformed = true;
             alarmTriggered = false;
             evacuation = false;
+            setValueRange("low");
         }
     }
 
@@ -81,19 +111,21 @@ public class Main {
         if (pressure >= 220 && pressure <= 300) {
             acousticSignalTriggered = false;
             managerNotified = true;
-            informedMaintenanceTeam = true;
+            maintenanceTeamInformed = true;
             alarmTriggered = false;
             evacuation = false;
+            setValueRange("high");
         }
     }
 
     private void checkDangerousValue() {
-        if (pressure > 500) {
+        if (pressure >= 500) {
             acousticSignalTriggered = false;
             managerNotified = false;
-            informedMaintenanceTeam = false;
+            maintenanceTeamInformed = false;
             alarmTriggered = true;
             evacuation = true;
+            setValueRange("dangerous");
         }
     }
 
@@ -104,5 +136,20 @@ public class Main {
         checkLowPressure();
         checkHighPressure();
         checkDangerousValue();
+        checkLowVoltageValue();
+    }
+
+    private void checkVoltage() {
+        checkLowVoltageValue();
+    }
+
+    private void checkLowVoltageValue() {
+        if (voltage < 5.0) {
+            acousticSignalTriggered = true;
+            managerNotified = false;
+            maintenanceTeamInformed = false;
+            alarmTriggered = false;
+            evacuation = false;
+        }
     }
 }

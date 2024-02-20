@@ -5,8 +5,8 @@ public class Main {
         System.out.println("Hello World!");
     }
 
-    private double pressure = 0.0;
-    private double voltage = 0.0;
+    private double pressure = 200.0;
+    private double voltage = 5.5;
     private String currentValueRange = "optimal";
     private boolean acousticSignalTriggered = false;
     private boolean managerNotified = false;
@@ -55,7 +55,7 @@ public class Main {
     }
 
     public void setValueRange(String newValueRange) {
-        if (currentValueRange != newValueRange) {
+        if (!currentValueRange.equals(newValueRange)){
             currentValueRange = newValueRange;
             logInitialized = true;
         } else {
@@ -65,6 +65,7 @@ public class Main {
 
     private void checkMinValue() {
         if (pressure < 50) {
+            System.out.println("Pressure is too low");
             acousticSignalTriggered = true;
             managerNotified = true;
             maintenanceTeamInformed = false;
@@ -76,6 +77,7 @@ public class Main {
 
     private void checkMaxValue() {
         if (pressure > 300 && pressure < 500) {
+            System.out.println("Pressure is too high");
             acousticSignalTriggered = true;
             managerNotified = true;
             maintenanceTeamInformed = true;
@@ -87,6 +89,7 @@ public class Main {
 
     private void checkOptimalValue() {
         if (pressure > 180 && pressure < 220) {
+            System.out.println("Pressure is optimal");
             acousticSignalTriggered = false;
             managerNotified = false;
             maintenanceTeamInformed = false;
@@ -98,6 +101,7 @@ public class Main {
 
     private void checkLowPressure() {
         if (pressure >= 50 && pressure <= 180) {
+            System.out.println("Pressure is low");
             acousticSignalTriggered = false;
             managerNotified = true;
             maintenanceTeamInformed = true;
@@ -109,6 +113,7 @@ public class Main {
 
     private void checkHighPressure() {
         if (pressure >= 220 && pressure <= 300) {
+            System.out.println("Pressure is high");
             acousticSignalTriggered = false;
             managerNotified = true;
             maintenanceTeamInformed = true;
@@ -120,6 +125,7 @@ public class Main {
 
     private void checkDangerousValue() {
         if (pressure >= 500) {
+            System.out.println("Pressure is dangerous");
             acousticSignalTriggered = false;
             managerNotified = false;
             maintenanceTeamInformed = false;

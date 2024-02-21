@@ -64,7 +64,7 @@ public class Main {
     // --- PRESSURE METHODS ----------------------------------------------- //
 
     public void setValueRange(PressureRange newPressureRange) {
-        if (currentValueRange != newPressureRange) {
+        if (!currentValueRange.equals(newPressureRange)) {
             currentValueRange = newPressureRange;
             String serverAnswer = sendLogToServer(newPressureRange + " pressure value detected");
             logInitialized = serverAnswer.contains("Server received");
@@ -92,7 +92,7 @@ public class Main {
             reactToPressureRange(false, true, true, false, false, PressureRange.HIGH);
         } else if (pressure > 180) {
             reactToPressureRange(false, false, false, false, false, PressureRange.OPTIMAL);
-        } else if (pressure <= 180) {
+        } else if (pressure >= 50) {
             reactToPressureRange(false, true, true, false, false, PressureRange.LOW);
         } else if (pressure < 50) {
             reactToPressureRange(true, true, false, false, false, PressureRange.MINIMUM);

@@ -50,7 +50,7 @@ public class MainTest {
     }
 
     @Test
-    @DisplayName("Test for the case when the pressure value is between 181 and 219")
+    @DisplayName("Test for the case when the pressure value is above 180 and under 220")
     public void testOptimalPressureValue() {
         Main main = new Main();
         main.setPressure(OPTIMAL_PRESSURE_THRESHOLD);

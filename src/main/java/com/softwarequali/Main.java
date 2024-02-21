@@ -135,24 +135,24 @@ public class Main {
 
     public class VentilMock {
 
-        public enum VentilState {
+        public enum VentilMockState {
             OPEN, CLOSED
         }
     
-        private VentilState currentState;
+        private VentilMockState currentState;
     
         public VentilMock() {
-            // Standardmäßig ist das Ventil geschlossen
-            currentState = VentilState.CLOSED;
+            // By default, the valve is closed
+            currentState = VentilMockState.CLOSED;
         }
     
-        // Methode zum Ändern des Ventilzustands (für Testzwecke)
-        public void setVentilState(VentilState newState) {
+        // Method for changing the valve state (for testing purposes)
+        public void setVentilState(VentilMockState newState) {
             currentState = newState;
         }
     
-        // Mock-Methode zur Abfrage des aktuellen Ventilzustands
-        public VentilState getVentilState() {
+        // Mock method for querying the current valve state"
+        public VentilMockState getVentilState() {
             return currentState;
         }
     }

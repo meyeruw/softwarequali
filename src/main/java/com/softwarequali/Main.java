@@ -73,7 +73,7 @@ public class Main {
         }
     }
 
-    private void setPressureValues(boolean acoustic, boolean manager, boolean maintenance, boolean alarm, boolean evacuate, PressureRange range) {
+    private void reactToPressureRange(boolean acoustic, boolean manager, boolean maintenance, boolean alarm, boolean evacuate, PressureRange range) {
         System.out.println("Pressure is " + range.toString().toLowerCase());
         acousticSignalTriggered = acoustic;
         managerNotified = manager;
@@ -85,19 +85,19 @@ public class Main {
     
     private void checkPressure() {
         if (pressure > 500) {
-            setPressureValues(false, false, false, true, true, PressureRange.DANGEROUS);
+            reactToPressureRange(false, false, false, true, true, PressureRange.DANGEROUS);
         } else if (pressure > 300) {
-            setPressureValues(true, true, true, false, false, PressureRange.MAXIMUM);
+            reactToPressureRange(true, true, true, false, false, PressureRange.MAXIMUM);
         } else if (pressure >= 220) {
-            setPressureValues(false, true, true, false, false, PressureRange.HIGH);
+            reactToPressureRange(false, true, true, false, false, PressureRange.HIGH);
         } else if (pressure > 180) {
-            setPressureValues(false, false, false, false, false, PressureRange.OPTIMAL);
+            reactToPressureRange(false, false, false, false, false, PressureRange.OPTIMAL);
         } else if (pressure <= 180) {
-            setPressureValues(false, true, true, false, false, PressureRange.LOW);
+            reactToPressureRange(false, true, true, false, false, PressureRange.LOW);
         } else if (pressure < 50) {
-            setPressureValues(true, true, false, false, false, PressureRange.MINIMUM);
+            reactToPressureRange(true, true, false, false, false, PressureRange.MINIMUM);
         } else {
-            setPressureValues(false, false, false, false, false, PressureRange.INVALID);
+            reactToPressureRange(false, false, false, false, false, PressureRange.INVALID);
         }
     }
 

@@ -1,19 +1,25 @@
 package com.softwarequali;
 
 public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
-    }
+
+    // --- INSTANCE VARIABLES  ----------------------------------------------- //
 
     private double pressure = 200;
     private double voltage = 7;
-    private String currentValueRange = "optimal";
+    private PressureRange currentValueRange = PressureRange.OPTIMAL;
     private boolean acousticSignalTriggered = false;
     private boolean managerNotified = false;
     private boolean maintenanceTeamInformed = false;
     private boolean alarmTriggered = false;
     private boolean evacuation = false;
     private boolean logInitialized = false;
+
+    public enum PressureRange {
+        MINIMUM, LOW, OPTIMAL, HIGH, MAXIMUM, DANGEROUS,
+        INVALID
+    }
+
+    // --- SET VALUE METHODS  ------------------------------------------------- //
 
     // pressure gets updated in real time
     public void setPressure(double pressureSensorValue) {
@@ -28,6 +34,8 @@ public class Main {
         this.voltage = voltageSensorValue;
         checkVoltage();
     }
+
+    // --- CHECK BOOLEAN VALUES  ----------------------------------------------- //
 
     public boolean isLogInitialized() {
         return logInitialized;
@@ -53,95 +61,47 @@ public class Main {
         return evacuation;
     }
 
-    public void setValueRange(String newValueRange) {
-        if (!currentValueRange.equals(newValueRange)) {
-            currentValueRange = newValueRange;
-            String serverAnswer = sendLogToServer(newValueRange + " pressure value detected");
-            if (serverAnswer.contains("Server received")) {
-                logInitialized = true;
-            } else {
-                logInitialized = false;
-            }
+    // --- PRESSURE METHODS ----------------------------------------------- //
+
+    public void setValueRange(PressureRange newPressureRange) {
+        if (currentValueRange != newPressureRange) {
+            currentValueRange = newPressureRange;
+            String serverAnswer = sendLogToServer(newPressureRange + " pressure value detected");
+            logInitialized = serverAnswer.contains("Server received");
         } else {
             logInitialized = false;
         }
     }
 
-    private void minValue() {
-        System.out.println("Pressure is too low");
-        acousticSignalTriggered = true;
-        managerNotified = true;
-        maintenanceTeamInformed = false;
-        alarmTriggered = false;
-        evacuation = false;
-        setValueRange("minimum");
+    private void setPressureValues(boolean acoustic, boolean manager, boolean maintenance, boolean alarm, boolean evacuate, PressureRange range) {
+        System.out.println("Pressure is " + range.toString().toLowerCase());
+        acousticSignalTriggered = acoustic;
+        managerNotified = manager;
+        maintenanceTeamInformed = maintenance;
+        alarmTriggered = alarm;
+        evacuation = evacuate;
+        setValueRange(range);
     }
-
-    private void maxValue() {
-        System.out.println("Pressure is too high");
-        acousticSignalTriggered = true;
-        managerNotified = true;
-        maintenanceTeamInformed = true;
-        alarmTriggered = false;
-        evacuation = false;
-        setValueRange("maximum");
-    }
-
-    private void optimalValue() {
-        System.out.println("Pressure is optimal");
-        acousticSignalTriggered = false;
-        managerNotified = false;
-        maintenanceTeamInformed = false;
-        alarmTriggered = false;
-        evacuation = false;
-        setValueRange("optimal");
-    }
-
-    private void lowPressure() {
-        System.out.println("Pressure is low");
-        acousticSignalTriggered = false;
-        managerNotified = true;
-        maintenanceTeamInformed = true;
-        alarmTriggered = false;
-        evacuation = false;
-        setValueRange("low");
-    }
-
-    private void highPressure() {
-        System.out.println("Pressure is high");
-        acousticSignalTriggered = false;
-        managerNotified = true;
-        maintenanceTeamInformed = true;
-        alarmTriggered = false;
-        evacuation = false;
-        setValueRange("high");
-    }
-
-    private void dangerousValue() {
-        System.out.println("Pressure is dangerous");
-        acousticSignalTriggered = false;
-        managerNotified = false;
-        maintenanceTeamInformed = false;
-        alarmTriggered = true;
-        evacuation = true;
-        setValueRange("dangerous");
-    }
-
+    
     private void checkPressure() {
         if (pressure > 500) {
-            dangerousValue();
+            setPressureValues(false, false, false, true, true, PressureRange.DANGEROUS);
         } else if (pressure > 300) {
-            maxValue();
+            setPressureValues(true, true, true, false, false, PressureRange.MAXIMUM);
         } else if (pressure >= 220) {
-            highPressure();
+            setPressureValues(false, true, true, false, false, PressureRange.HIGH);
         } else if (pressure > 180) {
-            optimalValue();
-        } else if (pressure >= 50) {
-            lowPressure();
+            setPressureValues(false, false, false, false, false, PressureRange.OPTIMAL);
+        } else if (pressure <= 180) {
+            setPressureValues(false, true, true, false, false, PressureRange.LOW);
+        } else if (pressure < 50) {
+            setPressureValues(true, true, false, false, false, PressureRange.MINIMUM);
         } else {
-            minValue();
+            setPressureValues(false, false, false, false, false, PressureRange.INVALID);
         }
     }
+
+    // --- VOLTAGE METHODS  ----------------------------------------------- //
 
     private void checkVoltage() {
         if (voltage < 5.0) {
@@ -155,7 +115,10 @@ public class Main {
         maintenanceTeamInformed = false;
         alarmTriggered = false;
         evacuation = false;
+        System.out.println("Voltage is low");
     }
+
+    // --- LOGGING METHODS  ----------------------------------------------- //
 
     public String sendLogToServer(String logMessage) {
         try {
@@ -164,7 +127,38 @@ public class Main {
             return "Server received the following message: " + logMessage;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error while sending log to server", e);
         }
     }
+
+    // --- VALVE METHODS   ----------------------------------------------- //
+
+    public class VentilMock {
+
+        public enum VentilState {
+            OPEN, CLOSED
+        }
+    
+        private VentilState currentState;
+    
+        public VentilMock() {
+            // Standardmäßig ist das Ventil geschlossen
+            currentState = VentilState.CLOSED;
+        }
+    
+        // Methode zum Ändern des Ventilzustands (für Testzwecke)
+        public void setVentilState(VentilState newState) {
+            currentState = newState;
+        }
+    
+        // Mock-Methode zur Abfrage des aktuellen Ventilzustands
+        public VentilState getVentilState() {
+            return currentState;
+        }
+    }
+    
+
+    // --- ALARM METHODS  ----------------------------------------------- //
+
+    // --- SIGNAL METHODS  ----------------------------------------------- //
 }

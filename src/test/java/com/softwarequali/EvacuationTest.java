@@ -1,6 +1,6 @@
 package com.softwarequali;
 
-import static com.softwarequali.PressureThresholds.*;
+import static com.softwarequali.PressureThresholdConstants.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

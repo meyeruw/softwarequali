@@ -1,33 +1,37 @@
 package com.softwarequali;
 
-public class PressureRangeHandler {
+import static com.softwarequali.PressureThresholdConstants.*;
+
+public class PressureRangeHandlerMock {
     private AcousticSignalMock acousticSignal;
     private AlarmMock alarm;
     private PressureSensorMock pressureSensor;
 
-    // Constructor to initialize the dependencies
-    public PressureRangeHandler(AcousticSignalMock acousticSignal, AlarmMock alarm, PressureSensorMock pressureSensor) {
+    public PressureRangeHandlerMock(AcousticSignalMock acousticSignal, AlarmMock alarm, PressureSensorMock pressureSensor) {
         this.acousticSignal = acousticSignal;
         this.alarm = alarm;
         this.pressureSensor = pressureSensor;
     }
 
-    public void checkPressure() {
-        double pressure = pressureSensor.getPressure();
+    pressureSensor.setPressure(100);
+    double pressur = pressureSensor.getPressure();
+
+    private void checkPressure() {
         if (pressure > 500) {
-            reactToPressureRange(false, false, false, true, true, Main.PressureRange.DANGEROUS);
+            reactToPressureRange(false, false, false, true, true, DANGEROUS_PRESSURE_THRESHOLD);
+            alarm.triggerAlarm();
         } else if (pressure > 300) {
-            reactToPressureRange(true, true, true, false, false, Main.PressureRange.MAXIMUM);
+            reactToPressureRange(true, true, true, false, false, MAXIMUM_PRESSURE_THRESHOLD);
         } else if (pressure >= 220) {
-            reactToPressureRange(false, true, true, false, false, Main.PressureRange.HIGH);
+            reactToPressureRange(false, true, true, false, false, HIGH_PRESSURE_THRESHOLD);
         } else if (pressure > 180) {
-            reactToPressureRange(false, false, false, false, false, Main.PressureRange.OPTIMAL);
+            reactToPressureRange(false, false, false, false, false, OPTIMAL_PRESSURE_THRESHOLD);
         } else if (pressure >= 50) {
-            reactToPressureRange(false, true, true, false, false, Main.PressureRange.LOW);
+            reactToPressureRange(false, true, true, false, false, LOW_PRESSURE_THRESHOLD);
         } else if (pressure < 50) {
-            reactToPressureRange(true, true, false, false, false, Main.PressureRange.MINIMUM);
+            reactToPressureRange(true, true, false, false, false, MINIMUM_PRESSURE_THRESHOLD);
         } else {
-            reactToPressureRange(false, false, false, false, false, Main.PressureRange.INVALID);
+            reactToPressureRange(false, false, false, false, false, INVALID_PRESSURE_THRESHOLD);
         }
     }
 

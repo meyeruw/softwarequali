@@ -7,7 +7,7 @@ public class Main {
     private double pressure = 200;
     private double voltage = 7;
     private PressureRange currentValueRange = PressureRange.OPTIMAL;
-    private boolean acousticSignalTriggered = false;
+    AcousticSignalMock acousticSignal = new AcousticSignalMock();
     private boolean managerNotified = false;
     private boolean maintenanceTeamInformed = false;
     private boolean alarmTriggered = false;
@@ -41,10 +41,6 @@ public class Main {
         return logInitialized;
     }
 
-    public boolean isAcousticSignalTriggered() {
-        return acousticSignalTriggered;
-    }
-
     public boolean isManagerNotified() {
         return managerNotified;
     }
@@ -75,7 +71,7 @@ public class Main {
 
     private void reactToPressureRange(boolean acoustic, boolean manager, boolean maintenance, boolean alarm, boolean evacuate, PressureRange range) {
         System.out.println("Pressure is " + range.toString().toLowerCase());
-        acousticSignalTriggered = acoustic;
+        acousticSignal.sendSignal();
         managerNotified = manager;
         maintenanceTeamInformed = maintenance;
         alarmTriggered = alarm;

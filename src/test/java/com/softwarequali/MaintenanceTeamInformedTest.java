@@ -13,49 +13,60 @@ public class MaintenanceTeamInformedTest {
     @Test
     @DisplayName("Test if the maintenance team is informed when the pressure is below 50")
     public void testMaintenanceTeamInformedMinimumPressure() {
-        Main main = new Main();
-        main.setPressure(MINIMUM_PRESSURE_THRESHOLD - 1);
-        assertTrue(main.isMaintenanceTeamInformed());
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(49.9, 7.0));
+        NotificationMock notification = pressureRangeHandler.getNotificationMock();
+        pressureRangeHandler.checkPressure();
+
+        assertTrue(notification.wasMaintenanceTeamNotified(), "The maintenance team was not informed with a pressure of 49.9");
     }
 
     @Test
     @DisplayName("Test if the maintenance team is informed when the pressure is between 50 and 180")
     public void testMaintenanceTeamInformedLowPressure() {
-        Main main = new Main();
-        main.setPressure(LOW_PRESSURE_THRESHOLD - 1);
-        assertTrue(main.isMaintenanceTeamInformed());
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(50.0, 7.0));
+        NotificationMock notification = pressureRangeHandler.getNotificationMock();
+        pressureRangeHandler.checkPressure();
+
+        assertTrue(notification.wasMaintenanceTeamNotified(), "The maintenance team was not informed with a pressure of 50.0");
     }
 
     @Test
     @DisplayName("Test if the maintenance team is informed when the pressure is above 180 and under 220")
     public void testMaintenanceTeamInformedOptimalPressure() {
-        Main main = new Main();
-        main.setPressure(OPTIMAL_PRESSURE_THRESHOLD + 1);
-        assertFalse(main.isMaintenanceTeamInformed());
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(219.9, 7.0));
+        NotificationMock notification = pressureRangeHandler.getNotificationMock();
+        pressureRangeHandler.checkPressure();
+
+        assertFalse(notification.wasMaintenanceTeamNotified(), "The maintenance team was not informed with a pressure of 219.9");
     }
 
     @Test
     @DisplayName("Test if the maintenance team is informed when the pressure is between 220 and 300")
     public void testMaintenanceTeamInformedHighPressure() {
-        Main main = new Main();
-        main.setPressure(HIGH_PRESSURE_THRESHOLD + 1);
-        assertTrue(main.isMaintenanceTeamInformed());
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(300.0, 7.0));
+        NotificationMock notification = pressureRangeHandler.getNotificationMock();
+        pressureRangeHandler.checkPressure();
+
+        assertTrue(notification.wasMaintenanceTeamNotified(), "The maintenance team was not informed with a pressure of 300.0");
     }
 
     @Test
     @DisplayName("Test if the maintenance team is informed when the pressure is above 300")
     public void testMaintenanceTeamInformedMaximumPressure() {
-        Main main = new Main();
-        main.setPressure(MAXIMUM_PRESSURE_THRESHOLD + 1);
-        assertTrue(main.isMaintenanceTeamInformed());
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(300.1, 7.0));
+        NotificationMock notification = pressureRangeHandler.getNotificationMock();
+        pressureRangeHandler.checkPressure();
+
+        assertTrue(notification.wasMaintenanceTeamNotified(), "The maintenance team was not informed with a pressure of 300.1");
     }
 
     @Test
     @DisplayName("Test if the maintenance team is informed when the pressure is above 500")
     public void testMaintenanceTeamInformedDangerousPressure() {
-        Main main = new Main();
-        main.setPressure(DANGEROUS_PRESSURE_THRESHOLD + 1);
-        assertFalse(main.isMaintenanceTeamInformed());
-    }
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(500.1, 7.0));
+        NotificationMock notification = pressureRangeHandler.getNotificationMock();
+        pressureRangeHandler.checkPressure();
 
+        assertFalse(notification.wasMaintenanceTeamNotified(), "The maintenance team was not informed with a pressure of 500.1");
+    }
 }

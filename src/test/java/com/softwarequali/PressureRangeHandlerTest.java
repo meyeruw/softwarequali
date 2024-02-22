@@ -14,5 +14,4 @@ public class PressureRangeHandlerTest {
 
         assertTrue(acousticSignal.wasSignalSent());
     }
-
 }

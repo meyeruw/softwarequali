@@ -1,7 +1,5 @@
 package com.softwarequali;
 
-import static com.softwarequali.PressureThresholdConstants.*;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +25,7 @@ public class AccousticSignalTest {
         AcousticSignalMock acousticSignal = pressureRangeHandler.getAcousticSignal();
         pressureRangeHandler.checkPressure();
 
-        assertFalse(acousticSignal.wasSignalSent(), "The acoustic signal was not sent with a pressure of 50.1");
+        assertFalse(acousticSignal.wasSignalSent(), "The acoustic signal was not sent with a pressure of 50.0");
     }
 
     @Test

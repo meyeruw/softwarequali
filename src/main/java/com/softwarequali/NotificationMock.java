@@ -15,15 +15,15 @@ public class NotificationMock {
     }
 
     // Maintenance Team Information
-    private boolean wasMaintenanceTeamInformed = false;
+    private boolean wasMaintenanceTeamNotified = false;
 
     public void notifyMaintenanceTeam() {
-        wasMaintenanceTeamInformed = true;
+        wasMaintenanceTeamNotified = true;
         System.out.println("Maintenance team informed");
     }
 
-    public boolean wasMaintenanceTeamInformed() {
-        return wasMaintenanceTeamInformed;
+    public boolean wasMaintenanceTeamNotified() {
+        return wasMaintenanceTeamNotified;
     }
 
 }

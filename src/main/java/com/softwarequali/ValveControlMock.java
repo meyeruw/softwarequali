@@ -3,7 +3,7 @@ package com.softwarequali;
 public class ValveControlMock {
     
     public enum ValveState {
-        OPEN, CLOSED, PARTIALLY_OPEN
+        OPEN, CLOSED, PARTIALLY_OPEN, ERROR
     }
 
     private ValveState currentState;
@@ -20,20 +20,4 @@ public class ValveControlMock {
     public ValveState getValveState() {
         return currentState;
     }
-
-    public void openValve() {
-        setValveState(ValveState.OPEN);
-        System.out.println("Valve opened");
-    }
-
-    public void closeValve() {
-        setValveState(ValveState.CLOSED);
-        System.out.println("Valve closed");
-    }
-
-    public void partiallyOpenValve() {
-        setValveState(ValveState.PARTIALLY_OPEN);
-        System.out.println("Valve partially opened");
-    }
-
 }

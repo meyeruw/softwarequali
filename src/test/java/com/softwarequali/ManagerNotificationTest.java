@@ -1,7 +1,5 @@
 package com.softwarequali;
 
-import static com.softwarequali.PressureThresholdConstants.*;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -69,5 +67,4 @@ public class ManagerNotificationTest {
 
         assertFalse(managerNotification.wasManagerNotified(), "The manager was not notified with a pressure of 500.1");
     }
-
 }

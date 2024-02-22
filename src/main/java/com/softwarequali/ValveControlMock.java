@@ -12,9 +12,8 @@ public class ValveControlMock {
         currentState = ValveState.CLOSED;
     }
 
-    public void setValveState(ValveState newState) {
-        currentState = newState;
-        System.out.println("Valve state set to: " + newState);
+    public void setCurrentState(ValveState state) {
+        this.currentState = state;
     }
 
     public ValveState getValveState() {

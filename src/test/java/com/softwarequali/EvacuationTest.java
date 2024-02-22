@@ -1,7 +1,5 @@
 package com.softwarequali;
 
-import static com.softwarequali.PressureThresholdConstants.*;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,48 +11,60 @@ public class EvacuationTest {
     @Test
     @DisplayName("Test for no evacuation when the pressure is below 50")
     public void testNoEvacuationMinimumPressure() {
-        Main main = new Main();
-        main.setPressure(MINIMUM_PRESSURE_THRESHOLD - 1);
-        assertFalse(main.isEvacuation());
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(49.9, 7.0));
+        EvacuationMock evacuation = pressureRangeHandler.getEvacuation();
+        pressureRangeHandler.checkPressure();
+
+        assertFalse(evacuation.wasEvacuationTriggered(), "Evacuation was triggered with a pressure of 49.9");
     }
 
     @Test
     @DisplayName("Test for no evacuation when the pressure is between 50 and 180")
     public void testNoEvacuationLowPressure() {
-        Main main = new Main();
-        main.setPressure(LOW_PRESSURE_THRESHOLD - 1);
-        assertFalse(main.isEvacuation());
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(50.0, 7.0));
+        EvacuationMock evacuation = pressureRangeHandler.getEvacuation();
+        pressureRangeHandler.checkPressure();
+
+        assertFalse(evacuation.wasEvacuationTriggered(), "Evacuation was triggered with a pressure of 50.0");
     }
 
     @Test
     @DisplayName("Test for no evacuation when the pressure is above 180 and under 220")
     public void testNoEvacuationOptimalPressure() {
-        Main main = new Main();
-        main.setPressure(OPTIMAL_PRESSURE_THRESHOLD + 1);
-        assertFalse(main.isEvacuation());
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(219.9, 7.0));
+        EvacuationMock evacuation = pressureRangeHandler.getEvacuation();
+        pressureRangeHandler.checkPressure();
+
+        assertFalse(evacuation.wasEvacuationTriggered(), "Evacuation was triggered with a pressure of 219.9");
     }
 
     @Test
     @DisplayName("Test for no evacuation when the pressure is between 220 and 300")
     public void testNoEvacuationHighPressure() {
-        Main main = new Main();
-        main.setPressure(HIGH_PRESSURE_THRESHOLD + 1);
-        assertFalse(main.isEvacuation());
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(300.0, 7.0));
+        EvacuationMock evacuation = pressureRangeHandler.getEvacuation();
+        pressureRangeHandler.checkPressure();
+
+        assertFalse(evacuation.wasEvacuationTriggered(), "Evacuation was triggered with a pressure of 300.0");
     }
 
     @Test
     @DisplayName("Test for no evacuation when the pressure is above 300 but below 500")
     public void testNoEvacuationMaximumPressure() {
-        Main main = new Main();
-        main.setPressure(MAXIMUM_PRESSURE_THRESHOLD + 1);
-        assertFalse(main.isEvacuation());        
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(300.1, 7.0));
+        EvacuationMock evacuation = pressureRangeHandler.getEvacuation();
+        pressureRangeHandler.checkPressure();
+
+        assertFalse(evacuation.wasEvacuationTriggered(), "Evacuation was triggered with a pressure of 300.1");
     }
 
     @Test
     @DisplayName("Test for evacuation when the pressure is above 500")
     public void testEvacuationDangerousPressure() {
-        Main main = new Main();
-        main.setPressure(DANGEROUS_PRESSURE_THRESHOLD + 1);
-        assertTrue(main.isEvacuation());
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(500.1, 7.0));
+        EvacuationMock evacuation = pressureRangeHandler.getEvacuation();
+        pressureRangeHandler.checkPressure();
+
+        assertTrue(evacuation.wasEvacuationTriggered(), "Evacuation was not triggered with a pressure of 500.1");
     }
 }

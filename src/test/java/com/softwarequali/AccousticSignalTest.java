@@ -67,4 +67,24 @@ public class AccousticSignalTest {
 
         assertFalse(acousticSignal.wasSignalSent(), "The acoustic signal was sent with a pressure of 500.1");
     }
+
+    @Test
+    @DisplayName("Test for the acoustic signal when the voltage is under 5")
+    public void testAcousticSignalLowVoltage() {
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(200.0, 4.9));
+        AcousticSignalMock acousticSignal = pressureRangeHandler.getAcousticSignal();
+        pressureRangeHandler.checkPressure();
+
+        assertTrue(acousticSignal.wasSignalSent(), "The acoustic signal was not sent with a voltage of 4.9");
+    }
+
+    @Test
+    @DisplayName("Test for the acoustic signal when the voltage is 5 or above")
+    public void testAcousticSignalOptimalVoltage() {
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(200.0, 5.0));
+        AcousticSignalMock acousticSignal = pressureRangeHandler.getAcousticSignal();
+        pressureRangeHandler.checkPressure();
+
+        assertFalse(acousticSignal.wasSignalSent(), "The acoustic signal was sent with a voltage of 4.9");
+    }
 }

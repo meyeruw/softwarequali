@@ -18,7 +18,7 @@ public class PressureRangeHandlerMock {
         double voltage = pressureSensor.getVoltage();
 
         if (voltage < 5.0) {
-            handleLowPressure();
+            handleLowVoltage();
         } else {
             if (pressure > 500.0) {
                 handleDangerousPressure();

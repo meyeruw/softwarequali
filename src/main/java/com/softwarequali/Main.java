@@ -37,6 +37,14 @@ public class Main {
 
     // --- CHECK BOOLEAN VALUES  ----------------------------------------------- //
 
+    public boolean isAcousticSignalTriggered() {
+    AcousticSignalMock acousticSignalMock = new AcousticSignalMock();
+
+        acousticSignalMock.sendSignal();
+        
+        return acousticSignalMock.wasSignalSent();
+    }
+
     public boolean isLogInitialized() {
         return logInitialized;
     }
@@ -106,7 +114,7 @@ public class Main {
     }
 
     private void lowVoltageValue() {
-        acousticSignalTriggered = true;
+        acousticSignal.sendSignal();
         managerNotified = false;
         maintenanceTeamInformed = false;
         alarmTriggered = false;

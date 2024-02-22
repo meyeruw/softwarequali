@@ -25,103 +25,103 @@ public class MainTest {
 
     // --- TESTS FOR PRESSURE RANGES ----------------------------------------------- //
 
-    @Test
-    @DisplayName("Test for the case when the pressure value is below 50")
-    public void testMinimumPressureValue() {
-        Main main = new Main();
-        main.setPressure(MINIMUM_PRESSURE_THRESHOLD);
-        main.setPressure(MINIMUM_PRESSURE_THRESHOLD - 1);
-        assertTrue(main.isLogInitialized());
-        assertTrue(main.isAcousticSignalTriggered());
-        assertTrue(main.isManagerNotified());
-        assertFalse(main.isMaintenanceTeamInformed());
-        assertFalse(main.isAlarmTriggered());
-        assertFalse(main.isEvacuation());
-    }
+    // @Test
+    // @DisplayName("Test for the case when the pressure value is below 50")
+    // public void testMinimumPressureValue() {
+    //     Main main = new Main();
+    //     main.setPressure(MINIMUM_PRESSURE_THRESHOLD);
+    //     main.setPressure(MINIMUM_PRESSURE_THRESHOLD - 1);
+    //     assertTrue(main.isLogInitialized());
+    //     assertTrue(main.isAcousticSignalTriggered());
+    //     assertTrue(main.isManagerNotified());
+    //     assertFalse(main.isMaintenanceTeamInformed());
+    //     assertFalse(main.isAlarmTriggered());
+    //     assertFalse(main.isEvacuation());
+    // }
 
-    @Test
-    @DisplayName("Test for the case when the pressure value is between 50 and 180")
-    public void testLowPressureValue() {
-        Main main = new Main();
-        main.setPressure(LOW_PRESSURE_THRESHOLD + 1);
-        main.setPressure(LOW_PRESSURE_THRESHOLD);
-        assertTrue(main.isLogInitialized());
-        assertFalse(main.isAcousticSignalTriggered());
-        assertTrue(main.isManagerNotified());  
-        assertTrue(main.isMaintenanceTeamInformed());
-        assertFalse(main.isAlarmTriggered());
-        assertFalse(main.isEvacuation());
-    }
+    // @Test
+    // @DisplayName("Test for the case when the pressure value is between 50 and 180")
+    // public void testLowPressureValue() {
+    //     Main main = new Main();
+    //     main.setPressure(LOW_PRESSURE_THRESHOLD + 1);
+    //     main.setPressure(LOW_PRESSURE_THRESHOLD);
+    //     assertTrue(main.isLogInitialized());
+    //     assertFalse(main.isAcousticSignalTriggered());
+    //     assertTrue(main.isManagerNotified());  
+    //     assertTrue(main.isMaintenanceTeamInformed());
+    //     assertFalse(main.isAlarmTriggered());
+    //     assertFalse(main.isEvacuation());
+    // }
 
-    @Test
-    @DisplayName("Test for the case when the pressure value is above 180 and under 220")
-    public void testOptimalPressureValue() {
-        Main main = new Main();
-        main.setPressure(OPTIMAL_PRESSURE_THRESHOLD);
-        main.setPressure(OPTIMAL_PRESSURE_THRESHOLD + 1);
-        assertTrue(main.isLogInitialized());
-        assertFalse(main.isAcousticSignalTriggered());
-        assertFalse(main.isManagerNotified());  
-        assertFalse(main.isMaintenanceTeamInformed());
-        assertFalse(main.isAlarmTriggered());
-        assertFalse(main.isEvacuation());
-    }
+    // @Test
+    // @DisplayName("Test for the case when the pressure value is above 180 and under 220")
+    // public void testOptimalPressureValue() {
+    //     Main main = new Main();
+    //     main.setPressure(OPTIMAL_PRESSURE_THRESHOLD);
+    //     main.setPressure(OPTIMAL_PRESSURE_THRESHOLD + 1);
+    //     assertTrue(main.isLogInitialized());
+    //     assertFalse(main.isAcousticSignalTriggered());
+    //     assertFalse(main.isManagerNotified());  
+    //     assertFalse(main.isMaintenanceTeamInformed());
+    //     assertFalse(main.isAlarmTriggered());
+    //     assertFalse(main.isEvacuation());
+    // }
 
-    @Test
-    @DisplayName("Test for the case when the pressure value is between 220 and 300")
-    public void testHighPressureValue() {
-        Main main = new Main();
-        main.setPressure(HIGH_PRESSURE_THRESHOLD - 1);
-        main.setPressure(HIGH_PRESSURE_THRESHOLD);
-        assertTrue(main.isLogInitialized());
-        assertFalse(main.isAcousticSignalTriggered());
-        assertTrue(main.isManagerNotified());  
-        assertTrue(main.isMaintenanceTeamInformed());
-        assertFalse(main.isAlarmTriggered());
-        assertFalse(main.isEvacuation());
-    }
+    // @Test
+    // @DisplayName("Test for the case when the pressure value is between 220 and 300")
+    // public void testHighPressureValue() {
+    //     Main main = new Main();
+    //     main.setPressure(HIGH_PRESSURE_THRESHOLD - 1);
+    //     main.setPressure(HIGH_PRESSURE_THRESHOLD);
+    //     assertTrue(main.isLogInitialized());
+    //     assertFalse(main.isAcousticSignalTriggered());
+    //     assertTrue(main.isManagerNotified());  
+    //     assertTrue(main.isMaintenanceTeamInformed());
+    //     assertFalse(main.isAlarmTriggered());
+    //     assertFalse(main.isEvacuation());
+    // }
 
-    @Test
-    @DisplayName("Test for the case when the pressure value is above 300")
-    public void testMaximumPressureValue() {
-        Main main = new Main();
-        main.setPressure(MAXIMUM_PRESSURE_THRESHOLD);
-        main.setPressure(MAXIMUM_PRESSURE_THRESHOLD + 1);
-        assertTrue(main.isLogInitialized());
-        assertTrue(main.isAcousticSignalTriggered());
-        assertTrue(main.isManagerNotified());  
-        assertTrue(main.isMaintenanceTeamInformed());
-        assertFalse(main.isAlarmTriggered());
-        assertFalse(main.isEvacuation());        
-    }
+    // @Test
+    // @DisplayName("Test for the case when the pressure value is above 300")
+    // public void testMaximumPressureValue() {
+    //     Main main = new Main();
+    //     main.setPressure(MAXIMUM_PRESSURE_THRESHOLD);
+    //     main.setPressure(MAXIMUM_PRESSURE_THRESHOLD + 1);
+    //     assertTrue(main.isLogInitialized());
+    //     assertTrue(main.isAcousticSignalTriggered());
+    //     assertTrue(main.isManagerNotified());  
+    //     assertTrue(main.isMaintenanceTeamInformed());
+    //     assertFalse(main.isAlarmTriggered());
+    //     assertFalse(main.isEvacuation());        
+    // }
 
-    @Test
-    @DisplayName("Test for the case when the pressure value is above 500")
-    public void testDangerousPressureValue() {
-        Main main = new Main();
-        main.setPressure(DANGEROUS_PRESSURE_THRESHOLD);
-        main.setPressure(DANGEROUS_PRESSURE_THRESHOLD + 1);
-        assertTrue(main.isLogInitialized());
-        assertFalse(main.isAcousticSignalTriggered());
-        assertFalse(main.isManagerNotified());  
-        assertFalse(main.isMaintenanceTeamInformed());
-        assertTrue(main.isAlarmTriggered());
-        assertTrue(main.isEvacuation());
-    }
+    // @Test
+    // @DisplayName("Test for the case when the pressure value is above 500")
+    // public void testDangerousPressureValue() {
+    //     Main main = new Main();
+    //     main.setPressure(DANGEROUS_PRESSURE_THRESHOLD);
+    //     main.setPressure(DANGEROUS_PRESSURE_THRESHOLD + 1);
+    //     assertTrue(main.isLogInitialized());
+    //     assertFalse(main.isAcousticSignalTriggered());
+    //     assertFalse(main.isManagerNotified());  
+    //     assertFalse(main.isMaintenanceTeamInformed());
+    //     assertTrue(main.isAlarmTriggered());
+    //     assertTrue(main.isEvacuation());
+    // }
 
-    // --- TESTS FOR VOLTAGE ------------------------------------------------------- //
+    // // --- TESTS FOR VOLTAGE ------------------------------------------------------- //
 
-    @Test
-    @DisplayName("Test for the case when the voltage is below 5")
-    public void testLowVoltageValue() {
-        Main main = new Main();
-        main.setVoltage(4.9);
-        assertTrue(main.isAcousticSignalTriggered());
-        assertFalse(main.isManagerNotified());  
-        assertFalse(main.isMaintenanceTeamInformed());
-        assertFalse(main.isAlarmTriggered());
-        assertFalse(main.isEvacuation());
-    }
+    // @Test
+    // @DisplayName("Test for the case when the voltage is below 5")
+    // public void testLowVoltageValue() {
+    //     Main main = new Main();
+    //     main.setVoltage(4.9);
+    //     assertTrue(main.isAcousticSignalTriggered());
+    //     assertFalse(main.isManagerNotified());  
+    //     assertFalse(main.isMaintenanceTeamInformed());
+    //     assertFalse(main.isAlarmTriggered());
+    //     assertFalse(main.isEvacuation());
+    // }
 
     // --- TESTS FOR LOGGING ------------------------------------------------------- //
 

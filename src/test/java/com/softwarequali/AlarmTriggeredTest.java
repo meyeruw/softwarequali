@@ -10,48 +10,61 @@ public class AlarmTriggeredTest {
     @Test
     @DisplayName("Test if the alarm is not triggered when the pressure is below 50")
     public void testAlarmNotTriggeredMinimumPressure() {
-        Main main = new Main();
-        main.setPressure(PressureThresholdConstants.MINIMUM_PRESSURE_THRESHOLD - 1);
-        assertFalse(main.isAlarmTriggered());
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(49.9, 7.0));
+        AlarmMock alarm = pressureRangeHandler.getAlarm();
+        pressureRangeHandler.checkPressure();
+
+        assertFalse(alarm.wasAlarmTriggered());
     }
 
     @Test
     @DisplayName("Test if the alarm is not triggered when the pressure is between 50 and 180")
     public void testAlarmNotTriggeredLowPressure() {
-        Main main = new Main();
-        main.setPressure(PressureThresholdConstants.LOW_PRESSURE_THRESHOLD - 1);
-        assertFalse(main.isAlarmTriggered());
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(50.1, 7.0));
+        AlarmMock alarm = pressureRangeHandler.getAlarm();
+        pressureRangeHandler.checkPressure();
+
+        assertFalse(alarm.wasAlarmTriggered());
     }
 
     @Test
     @DisplayName("Test if the alarm is not triggered when the pressure is optimal")
     public void testAlarmNotTriggeredOptimalPressure() {
-        Main main = new Main();
-        main.setPressure(PressureThresholdConstants.OPTIMAL_PRESSURE_THRESHOLD + 1);
-        assertFalse(main.isAlarmTriggered());
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(180.1, 7.0));
+        AlarmMock alarm = pressureRangeHandler.getAlarm();
+        pressureRangeHandler.checkPressure();
+
+        assertFalse(alarm.wasAlarmTriggered());
     }
 
     @Test
     @DisplayName("Test if the alarm is not triggered when the pressure is between 220 and 300")
     public void testAlarmNotTriggeredHighPressure() {
-        Main main = new Main();
-        main.setPressure(PressureThresholdConstants.HIGH_PRESSURE_THRESHOLD + 1);
-        assertFalse(main.isAlarmTriggered());
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(220.1, 7.0));
+        AlarmMock alarm = pressureRangeHandler.getAlarm();
+        pressureRangeHandler.checkPressure();
+
+        assertFalse(alarm.wasAlarmTriggered());
     }
 
     @Test
     @DisplayName("Test if the alarm is not triggered when the pressure is above 300 but less than 500")
     public void testAlarmNotTriggeredMaximumPressure() {
-        Main main = new Main();
-        main.setPressure(PressureThresholdConstants.MAXIMUM_PRESSURE_THRESHOLD + 1);
-        assertFalse(main.isAlarmTriggered());
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(300.1, 7.0));
+        AlarmMock alarm = pressureRangeHandler.getAlarm();
+        pressureRangeHandler.checkPressure();
+
+        assertFalse(alarm.wasAlarmTriggered());
     }
 
     @Test
     @DisplayName("Test if the alarm is triggered when the pressure is above 500")
     public void testAlarmTriggeredDangerousPressure() {
-        Main main = new Main();
-        main.setPressure(PressureThresholdConstants.DANGEROUS_PRESSURE_THRESHOLD + 1);
-        assertTrue(main.isAlarmTriggered());
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(500.1, 7.0));
+        AlarmMock alarm = pressureRangeHandler.getAlarm();
+        pressureRangeHandler.checkPressure();
+
+        assertTrue(alarm.wasAlarmTriggered());
     }
+
 }

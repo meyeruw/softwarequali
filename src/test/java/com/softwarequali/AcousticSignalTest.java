@@ -15,7 +15,7 @@ public class AccousticSignalTest {
     public void testAcousticSignalMinimumPressure() {
         Main main = new Main();
         main.setPressure(MINIMUM_PRESSURE_THRESHOLD - 1);
-        assertTrue(main.isAcousticSignalTriggered());
+        assertTrue(main.);
     }
 
     @Test

@@ -9,7 +9,7 @@ public class EvacuationMock {
         System.out.println("Evacuation initialized");
     }
 
-    public boolean wasSignalSent() {
+    public boolean wasEvacuationTriggered() {
         return wasEvacuationInitialized;
     }
 

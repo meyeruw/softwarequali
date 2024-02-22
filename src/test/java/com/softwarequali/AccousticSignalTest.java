@@ -25,7 +25,7 @@ public class AccousticSignalTest {
         AcousticSignalMock acousticSignal = pressureRangeHandler.getAcousticSignal();
         pressureRangeHandler.checkPressure();
 
-        assertFalse(acousticSignal.wasSignalSent(), "The acoustic signal was not sent with a pressure of 50.0");
+        assertFalse(acousticSignal.wasSignalSent(), "The acoustic signal was sent with a pressure of 50.0");
     }
 
     @Test
@@ -35,7 +35,7 @@ public class AccousticSignalTest {
         AcousticSignalMock acousticSignal = pressureRangeHandler.getAcousticSignal();
         pressureRangeHandler.checkPressure();
 
-        assertFalse(acousticSignal.wasSignalSent(), "The acoustic signal was not sent with a pressure of 219.9");
+        assertFalse(acousticSignal.wasSignalSent(), "The acoustic signal was sent with a pressure of 219.9");
     }
 
     @Test
@@ -45,7 +45,7 @@ public class AccousticSignalTest {
         AcousticSignalMock acousticSignal = pressureRangeHandler.getAcousticSignal();
         pressureRangeHandler.checkPressure();
 
-        assertFalse(acousticSignal.wasSignalSent(), "The acoustic signal was not sent with a pressure of 300.0");
+        assertFalse(acousticSignal.wasSignalSent(), "The acoustic signal was sent with a pressure of 300.0");
     }
 
     @Test
@@ -65,6 +65,6 @@ public class AccousticSignalTest {
         AcousticSignalMock acousticSignal = pressureRangeHandler.getAcousticSignal();
         pressureRangeHandler.checkPressure();
 
-        assertFalse(acousticSignal.wasSignalSent(), "The acoustic signal was not sent with a pressure of 500.1");
+        assertFalse(acousticSignal.wasSignalSent(), "The acoustic signal was sent with a pressure of 500.1");
     }
 }

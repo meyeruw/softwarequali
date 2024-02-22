@@ -1,7 +1,5 @@
 package com.softwarequali;
 
-import static com.softwarequali.PressureThresholdConstants.*;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +35,7 @@ public class MaintenanceTeamInformedTest {
         NotificationMock notification = pressureRangeHandler.getNotificationMock();
         pressureRangeHandler.checkPressure();
 
-        assertFalse(notification.wasMaintenanceTeamNotified(), "The maintenance team was not informed with a pressure of 219.9");
+        assertFalse(notification.wasMaintenanceTeamNotified(), "The maintenance team was informed with a pressure of 219.9");
     }
 
     @Test
@@ -67,6 +65,6 @@ public class MaintenanceTeamInformedTest {
         NotificationMock notification = pressureRangeHandler.getNotificationMock();
         pressureRangeHandler.checkPressure();
 
-        assertFalse(notification.wasMaintenanceTeamNotified(), "The maintenance team was not informed with a pressure of 500.1");
+        assertFalse(notification.wasMaintenanceTeamNotified(), "The maintenance team was informed with a pressure of 500.1");
     }
 }

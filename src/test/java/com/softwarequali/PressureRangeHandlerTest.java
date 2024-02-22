@@ -8,10 +8,10 @@ public class PressureRangeHandlerTest {
 
     @Test
     public void testPressureRangeHandlerMock() {
-        PressureSensorMock pressureSensor = new PressureSensorMock(49.0, 7.0);
-        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(pressureSensor);
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(49.0, 7.0));
         AcousticSignalMock acousticSignal = pressureRangeHandler.getAcousticSignal();
         pressureRangeHandler.checkPressure();
+
         assertTrue(acousticSignal.wasSignalSent());
     }
 

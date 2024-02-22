@@ -42,6 +42,7 @@ public class PressureRangeHandlerMock {
 
     public void handleMaximumPressure() {
         System.out.println("Maximum pressure detected");
+        acousticSignal.sendSignal();
         notificationMock.notifyManager();
         notificationMock.notifyMaintenanceTeam();
     }

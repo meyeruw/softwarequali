@@ -14,7 +14,7 @@ public class AlarmTriggeredTest {
         AlarmMock alarm = pressureRangeHandler.getAlarm();
         pressureRangeHandler.checkPressure();
 
-        assertFalse(alarm.wasAlarmTriggered());
+        assertFalse(alarm.wasAlarmTriggered(), "The alarm was not triggered with a pressure of 49.9");
     }
 
     @Test
@@ -24,7 +24,7 @@ public class AlarmTriggeredTest {
         AlarmMock alarm = pressureRangeHandler.getAlarm();
         pressureRangeHandler.checkPressure();
 
-        assertFalse(alarm.wasAlarmTriggered());
+        assertFalse(alarm.wasAlarmTriggered(), "The alarm was not triggered with a pressure of 50.1");
     }
 
     @Test
@@ -34,7 +34,7 @@ public class AlarmTriggeredTest {
         AlarmMock alarm = pressureRangeHandler.getAlarm();
         pressureRangeHandler.checkPressure();
 
-        assertFalse(alarm.wasAlarmTriggered());
+        assertFalse(alarm.wasAlarmTriggered(), "The alarm was not triggered with a pressure of 219.9");
     }
 
     @Test
@@ -44,7 +44,7 @@ public class AlarmTriggeredTest {
         AlarmMock alarm = pressureRangeHandler.getAlarm();
         pressureRangeHandler.checkPressure();
 
-        assertFalse(alarm.wasAlarmTriggered());
+        assertFalse(alarm.wasAlarmTriggered(), "The alarm was not triggered with a pressure of 300.0");
     }
 
     @Test
@@ -54,7 +54,7 @@ public class AlarmTriggeredTest {
         AlarmMock alarm = pressureRangeHandler.getAlarm();
         pressureRangeHandler.checkPressure();
 
-        assertFalse(alarm.wasAlarmTriggered());
+        assertFalse(alarm.wasAlarmTriggered(), "The alarm was not triggered with a pressure of 300.1");
     }
 
     @Test
@@ -64,7 +64,7 @@ public class AlarmTriggeredTest {
         AlarmMock alarm = pressureRangeHandler.getAlarm();
         pressureRangeHandler.checkPressure();
 
-        assertTrue(alarm.wasAlarmTriggered());
+        assertTrue(alarm.wasAlarmTriggered(), "The alarm was triggered with a pressure of 500.1");
     }
 
 }

@@ -19,6 +19,10 @@ public class MainTest {
     private static final double MAXIMUM_PRESSURE_THRESHOLD = 300;
     private static final double DANGEROUS_PRESSURE_THRESHOLD = 500;
 
+    // --- TESTS FOR ACCOUSTIC SIGNAL ----------------------------------------------- //
+
+    
+
     // --- TESTS FOR PRESSURE RANGES ----------------------------------------------- //
 
     @Test
@@ -29,7 +33,7 @@ public class MainTest {
         main.setPressure(MINIMUM_PRESSURE_THRESHOLD - 1);
         assertTrue(main.isLogInitialized());
         assertTrue(main.isAcousticSignalTriggered());
-        assertTrue(main.isManagerNotified());  
+        assertTrue(main.isManagerNotified());
         assertFalse(main.isMaintenanceTeamInformed());
         assertFalse(main.isAlarmTriggered());
         assertFalse(main.isEvacuation());

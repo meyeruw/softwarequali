@@ -17,7 +17,7 @@ public class NotificationMock {
     // Maintenance Team Information
     private boolean wasMaintenanceTeamInformed = false;
 
-    public void sendSignal() {
+    public void notifyMaintenanceTeam() {
         wasMaintenanceTeamInformed = true;
         System.out.println("Maintenance team informed");
     }

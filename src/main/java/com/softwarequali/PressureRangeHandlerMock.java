@@ -3,46 +3,92 @@ package com.softwarequali;
 import static com.softwarequali.PressureThresholdConstants.*;
 
 public class PressureRangeHandlerMock {
-    private AcousticSignalMock acousticSignal;
-    private AlarmMock alarm;
+
     private PressureSensorMock pressureSensor;
 
-    public PressureRangeHandlerMock(AcousticSignalMock acousticSignal, AlarmMock alarm, PressureSensorMock pressureSensor) {
-        this.acousticSignal = acousticSignal;
-        this.alarm = alarm;
+    private AcousticSignalMock acousticSignal = new AcousticSignalMock();
+    private NotificationMock notificationMock = new NotificationMock();
+    private AlarmMock alarm = new AlarmMock();
+    private EvacuationMock evacuation = new EvacuationMock();
+
+    public PressureRangeHandlerMock(PressureSensorMock pressureSensor) {
         this.pressureSensor = pressureSensor;
     }
 
-    pressureSensor.setPressure(100);
-    double pressur = pressureSensor.getPressure();
-
-    private void checkPressure() {
-        if (pressure > 500) {
-            reactToPressureRange(false, false, false, true, true, DANGEROUS_PRESSURE_THRESHOLD);
-            alarm.triggerAlarm();
-        } else if (pressure > 300) {
-            reactToPressureRange(true, true, true, false, false, MAXIMUM_PRESSURE_THRESHOLD);
-        } else if (pressure >= 220) {
-            reactToPressureRange(false, true, true, false, false, HIGH_PRESSURE_THRESHOLD);
-        } else if (pressure > 180) {
-            reactToPressureRange(false, false, false, false, false, OPTIMAL_PRESSURE_THRESHOLD);
-        } else if (pressure >= 50) {
-            reactToPressureRange(false, true, true, false, false, LOW_PRESSURE_THRESHOLD);
-        } else if (pressure < 50) {
-            reactToPressureRange(true, true, false, false, false, MINIMUM_PRESSURE_THRESHOLD);
+    public void checkPressure() {
+        double pressure = pressureSensor.getPressure();
+        if (pressure > DANGEROUS_PRESSURE_THRESHOLD) {
+            handleDangerousPressure();
+        } else if (pressure > MAXIMUM_PRESSURE_THRESHOLD) {
+            handleMaximumPressure();
+        } else if (pressure >= HIGH_PRESSURE_THRESHOLD) {
+            handleHighPressure();
+        } else if (pressure > LOW_PRESSURE_THRESHOLD) {
+            handleOptimalPressure();
+        } else if (pressure >= MINIMUM_PRESSURE_THRESHOLD) {
+            handleLowPressure();
+        } else if (pressure < MINIMUM_PRESSURE_THRESHOLD) {
+            handleMinimumPressure();
         } else {
-            reactToPressureRange(false, false, false, false, false, INVALID_PRESSURE_THRESHOLD);
+            handleInvalidPressure();
         }
     }
 
-    private void reactToPressureRange(boolean acoustic, boolean manager, boolean maintenance, boolean alarm, boolean evacuate, Main.PressureRange range) {
-        System.out.println("Pressure is " + range.toString().toLowerCase());
+    public void handleDangerousPressure() {
+        System.out.println("Dangerous pressure detected");
+        alarm.triggerAlarm();
+        evacuation.initializeEvacuation();
+    }
+
+    public void handleMaximumPressure() {
+        System.out.println("Maximum pressure detected");
+        notificationMock.notifyManager();
+        notificationMock.notifyMaintenanceTeam();
+    }
+
+    public void handleHighPressure() {
+        System.out.println("High pressure detected");
+        notificationMock.notifyManager();
+        notificationMock.notifyMaintenanceTeam();
+    }
+
+    public void handleOptimalPressure() {
+        System.out.println("Optimal pressure detected");
+    }
+
+    public void handleLowPressure() {
+        System.out.println("Low pressure detected");
+        notificationMock.notifyManager();
+        notificationMock.notifyMaintenanceTeam();
+    }
+
+    public void handleMinimumPressure() {
+        System.out.println("Minimum pressure detected");
         acousticSignal.sendSignal();
-        // Handle other actions based on pressure range
-        // managerNotified = manager; // Manager-related variables are not in the scope of PressureRangeHandler
-        // maintenanceTeamInformed = maintenance;
-        // alarmTriggered = alarm;
-        // evacuation = evacuate;
-        // setValueRange(range); // This method is not available in PressureRangeHandler
+        notificationMock.notifyManager();
+    }
+
+    public void handleInvalidPressure() {
+        System.out.println("Invalid pressure detected");
+    }
+
+    public PressureSensorMock getPressureSensor() {
+        return pressureSensor;
+    }
+
+    public AcousticSignalMock getAcousticSignal() {
+        return acousticSignal;
+    }
+
+    public NotificationMock getNotificationMock() {
+        return notificationMock;
+    }
+
+    public AlarmMock getAlarm() {
+        return alarm;
+    }
+
+    public EvacuationMock getEvacuation() {
+        return evacuation;
     }
 }

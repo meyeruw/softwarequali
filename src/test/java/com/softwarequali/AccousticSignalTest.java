@@ -13,17 +13,21 @@ public class AccousticSignalTest {
     @Test
     @DisplayName("Test for the acoustic signal when the pressure is below 50")
     public void testAcousticSignalMinimumPressure() {
-        Main main = new Main();
-        main.setPressure(MINIMUM_PRESSURE_THRESHOLD - 1);
-        assertTrue(main.isAcousticSignalTriggered());
+        PressureSensorMock pressureSensor = new PressureSensorMock(49.9, 7.0);
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(pressureSensor);
+        AcousticSignalMock acousticSignal = pressureRangeHandler.getAcousticSignal();
+        pressureRangeHandler.checkPressure();
+        assertTrue(acousticSignal.wasSignalSent());
     }
 
     @Test
     @DisplayName("Test for the acoustic signal when the pressure is between 50 and 180")
     public void testAcousticSignalLowPressure() {
-        Main main = new Main();
-        main.setPressure(LOW_PRESSURE_THRESHOLD - 1);
-        assertFalse(main.isAcousticSignalTriggered());
+        PressureSensorMock pressureSensor = new PressureSensorMock(50.1, 7.0);
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(pressureSensor);
+        AcousticSignalMock acousticSignal = pressureRangeHandler.getAcousticSignal();
+        pressureRangeHandler.checkPressure();
+        assertFalse(acousticSignal.wasSignalSent());
     }
 
     @Test

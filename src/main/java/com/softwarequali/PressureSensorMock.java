@@ -3,14 +3,19 @@ package com.softwarequali;
 public class PressureSensorMock {
 
     private double pressure;
+    private double voltage;
 
-    public void setPressure(double pressure) {
+    public PressureSensorMock(double pressure, double voltage) {
         this.pressure = pressure;
-        System.out.println("Pressure set to " + pressure);
+        this.voltage = voltage;
     }
 
     public double getPressure() {
         return this.pressure;
+    }
+
+    public double getVoltage() {
+        return this.voltage;
     }
 
 }

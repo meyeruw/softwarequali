@@ -23,31 +23,31 @@ public class ManagerNotificationTest {
     @Test
     @DisplayName("Test for the manager notification when the pressure is between 50 and 180")
     public void testManagerNotificationLowPressure() {
-        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(50.1, 7.0));
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(50.0, 7.0));
         NotificationMock managerNotification = pressureRangeHandler.getNotificationMock();
         pressureRangeHandler.checkPressure();
 
-        assertTrue(managerNotification.wasManagerNotified(), "The manager was notified with a pressure of 50.1");
+        assertTrue(managerNotification.wasManagerNotified(), "The manager was notified with a pressure of 50.0");
     }
 
     @Test
     @DisplayName("Test for the manager notification when the pressure is above 180 and under 220")
     public void testManagerNotificationOptimalPressure() {
-        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(180.1, 7.0));
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(219.9, 7.0));
         NotificationMock managerNotification = pressureRangeHandler.getNotificationMock();
         pressureRangeHandler.checkPressure();
 
-        assertFalse(managerNotification.wasManagerNotified(), "The manager was not notified with a pressure of 180.1");
+        assertFalse(managerNotification.wasManagerNotified(), "The manager was not notified with a pressure of 219.9");
     }
 
     @Test
     @DisplayName("Test for the manager notification when the pressure is between 220 and 300")
     public void testManagerNotificationHighPressure() {
-        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(220.1, 7.0));
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(300.0, 7.0));
         NotificationMock managerNotification = pressureRangeHandler.getNotificationMock();
         pressureRangeHandler.checkPressure();
 
-        assertTrue(managerNotification.wasManagerNotified(), "The manager was notified with a pressure of 220.1");
+        assertTrue(managerNotification.wasManagerNotified(), "The manager was notified with a pressure of 300.0");
     }
 
     @Test

@@ -20,17 +20,17 @@ public class AlarmTriggeredTest {
     @Test
     @DisplayName("Test if the alarm is not triggered when the pressure is between 50 and 180")
     public void testAlarmNotTriggeredLowPressure() {
-        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(50.1, 7.0));
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(50.0, 7.0));
         AlarmMock alarm = pressureRangeHandler.getAlarm();
         pressureRangeHandler.checkPressure();
 
-        assertFalse(alarm.wasAlarmTriggered(), "The alarm was not triggered with a pressure of 50.1");
+        assertFalse(alarm.wasAlarmTriggered(), "The alarm was not triggered with a pressure of 50.0");
     }
 
     @Test
     @DisplayName("Test if the alarm is not triggered when the pressure is optimal")
     public void testAlarmNotTriggeredOptimalPressure() {
-        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(180.1, 7.0));
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(219.9, 7.0));
         AlarmMock alarm = pressureRangeHandler.getAlarm();
         pressureRangeHandler.checkPressure();
 
@@ -40,7 +40,7 @@ public class AlarmTriggeredTest {
     @Test
     @DisplayName("Test if the alarm is not triggered when the pressure is between 220 and 300")
     public void testAlarmNotTriggeredHighPressure() {
-        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(220.1, 7.0));
+        PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(300, 7.0));
         AlarmMock alarm = pressureRangeHandler.getAlarm();
         pressureRangeHandler.checkPressure();
 

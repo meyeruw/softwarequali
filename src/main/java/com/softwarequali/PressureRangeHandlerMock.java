@@ -1,7 +1,5 @@
 package com.softwarequali;
 
-import static com.softwarequali.PressureThresholdConstants.*;
-
 public class PressureRangeHandlerMock {
 
     private PressureSensorMock pressureSensor;
@@ -17,21 +15,32 @@ public class PressureRangeHandlerMock {
 
     public void checkPressure() {
         double pressure = pressureSensor.getPressure();
-        if (pressure > DANGEROUS_PRESSURE_THRESHOLD) {
-            handleDangerousPressure();
-        } else if (pressure > MAXIMUM_PRESSURE_THRESHOLD) {
-            handleMaximumPressure();
-        } else if (pressure >= HIGH_PRESSURE_THRESHOLD) {
-            handleHighPressure();
-        } else if (pressure > LOW_PRESSURE_THRESHOLD) {
-            handleOptimalPressure();
-        } else if (pressure >= MINIMUM_PRESSURE_THRESHOLD) {
+        double voltage = pressureSensor.getVoltage();
+
+        if (voltage < 5.0) {
             handleLowPressure();
-        } else if (pressure < MINIMUM_PRESSURE_THRESHOLD) {
-            handleMinimumPressure();
         } else {
-            handleInvalidPressure();
+            if (pressure > 500.0) {
+                handleDangerousPressure();
+            } else if (pressure > 300.0) {
+                handleMaximumPressure();
+            } else if (pressure >= 220.0) {
+                handleHighPressure();
+            } else if (pressure > 180.0) {
+                handleOptimalPressure();
+            } else if (pressure >= 50.0) {
+                handleLowPressure();
+            } else if (pressure < 50.0) {
+                handleMinimumPressure();
+            } else {
+                handleInvalidPressure();
+            }
         }
+    }
+
+    public void handleLowVoltage() {
+        System.out.println("Low voltage detected");
+        acousticSignal.sendSignal();
     }
 
     public void handleDangerousPressure() {

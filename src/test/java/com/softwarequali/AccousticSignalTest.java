@@ -19,7 +19,7 @@ public class AccousticSignalTest {
     }
 
     @Test
-    @DisplayName("Test for the acoustic signal when the pressure is between 50 and 180")
+    @DisplayName("Test for no acoustic signal when the pressure is between 50 and 180")
     public void testAcousticSignalLowPressure() {
         PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(50.0, 7.0));
         AcousticSignalMock acousticSignal = pressureRangeHandler.getAcousticSignal();
@@ -29,7 +29,7 @@ public class AccousticSignalTest {
     }
 
     @Test
-    @DisplayName("Test for the acoustic signal when the pressure is above 180 and under 220")
+    @DisplayName("Test for no acoustic signal when the pressure is above 180 and under 220")
     public void testAcousticSignalOptimalPressure() {
         PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(219.9, 7.0));
         AcousticSignalMock acousticSignal = pressureRangeHandler.getAcousticSignal();
@@ -39,7 +39,7 @@ public class AccousticSignalTest {
     }
 
     @Test
-    @DisplayName("Test for the acoustic signal when the pressure is between 220 and 300")
+    @DisplayName("Test for no acoustic signal when the pressure is between 220 and 300")
     public void testAcousticSignalHighPressure() {
         PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(300.0, 7.0));
         AcousticSignalMock acousticSignal = pressureRangeHandler.getAcousticSignal();
@@ -59,7 +59,7 @@ public class AccousticSignalTest {
     }
 
     @Test
-    @DisplayName("Test for the acoustic signal when the pressure is above 500")
+    @DisplayName("Test for no acoustic signal when the pressure is above 500")
     public void testAcousticSignalDangerousPressure() {
         PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(500.1, 7.0));
         AcousticSignalMock acousticSignal = pressureRangeHandler.getAcousticSignal();
@@ -79,7 +79,7 @@ public class AccousticSignalTest {
     }
 
     @Test
-    @DisplayName("Test for the acoustic signal when the voltage is 5 or above")
+    @DisplayName("Test for no acoustic signal when the voltage is 5 or above")
     public void testAcousticSignalOptimalVoltage() {
         PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(200.0, 5.0));
         AcousticSignalMock acousticSignal = pressureRangeHandler.getAcousticSignal();

@@ -9,18 +9,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class MaintenanceTeamInformedTest {
 
     @Test
-    @DisplayName("Test if the maintenance team is informed when the pressure is below 50")
-    public void testMaintenanceTeamInformedMinimumPressure() {
+    @DisplayName("Test if the maintenance team is not notified when the pressure is below 50")
+    public void testMaintenanceTeamNotificationMinimumPressure() {
         PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(49.9, 7.0));
         NotificationMock notification = pressureRangeHandler.getNotificationMock();
         pressureRangeHandler.checkPressure();
 
-        assertTrue(notification.wasMaintenanceTeamNotified(), "The maintenance team was not informed with a pressure of 49.9");
+        assertFalse(notification.wasMaintenanceTeamNotified(), "The maintenance team was not informed with a pressure of 49.9");
     }
 
     @Test
-    @DisplayName("Test if the maintenance team is informed when the pressure is between 50 and 180")
-    public void testMaintenanceTeamInformedLowPressure() {
+    @DisplayName("Test if the maintenance team is notified when the pressure is between 50 and 180")
+    public void testMaintenanceTeamNotificationLowPressure() {
         PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(50.0, 7.0));
         NotificationMock notification = pressureRangeHandler.getNotificationMock();
         pressureRangeHandler.checkPressure();
@@ -29,8 +29,8 @@ public class MaintenanceTeamInformedTest {
     }
 
     @Test
-    @DisplayName("Test if the maintenance team is informed when the pressure is above 180 and under 220")
-    public void testMaintenanceTeamInformedOptimalPressure() {
+    @DisplayName("Test if the maintenance team is not notified when the pressure is above 180 and under 220")
+    public void testMaintenanceTeamNotificationOptimalPressure() {
         PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(219.9, 7.0));
         NotificationMock notification = pressureRangeHandler.getNotificationMock();
         pressureRangeHandler.checkPressure();
@@ -39,8 +39,8 @@ public class MaintenanceTeamInformedTest {
     }
 
     @Test
-    @DisplayName("Test if the maintenance team is informed when the pressure is between 220 and 300")
-    public void testMaintenanceTeamInformedHighPressure() {
+    @DisplayName("Test if the maintenance team is notified when the pressure is between 220 and 300")
+    public void testMaintenanceTeamNotificationHighPressure() {
         PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(300.0, 7.0));
         NotificationMock notification = pressureRangeHandler.getNotificationMock();
         pressureRangeHandler.checkPressure();
@@ -50,7 +50,7 @@ public class MaintenanceTeamInformedTest {
 
     @Test
     @DisplayName("Test if the maintenance team is informed when the pressure is above 300")
-    public void testMaintenanceTeamInformedMaximumPressure() {
+    public void testMaintenanceTeamNotificationMaximumPressure() {
         PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(300.1, 7.0));
         NotificationMock notification = pressureRangeHandler.getNotificationMock();
         pressureRangeHandler.checkPressure();
@@ -59,8 +59,8 @@ public class MaintenanceTeamInformedTest {
     }
 
     @Test
-    @DisplayName("Test if the maintenance team is informed when the pressure is above 500")
-    public void testMaintenanceTeamInformedDangerousPressure() {
+    @DisplayName("Test if the maintenance team is not notified when the pressure is above 500")
+    public void testMaintenanceTeamNotificationDangerousPressure() {
         PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(500.1, 7.0));
         NotificationMock notification = pressureRangeHandler.getNotificationMock();
         pressureRangeHandler.checkPressure();

@@ -10,7 +10,7 @@ public class EvacuationTest {
 
     @Test
     @DisplayName("Test for no evacuation when the pressure is below 50")
-    public void testNoEvacuationMinimumPressure() {
+    public void testEvacuationMinimumPressure() {
         PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(49.9, 7.0));
         EvacuationMock evacuation = pressureRangeHandler.getEvacuation();
         pressureRangeHandler.checkPressure();
@@ -20,7 +20,7 @@ public class EvacuationTest {
 
     @Test
     @DisplayName("Test for no evacuation when the pressure is between 50 and 180")
-    public void testNoEvacuationLowPressure() {
+    public void testEvacuationLowPressure() {
         PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(50.0, 7.0));
         EvacuationMock evacuation = pressureRangeHandler.getEvacuation();
         pressureRangeHandler.checkPressure();
@@ -30,7 +30,7 @@ public class EvacuationTest {
 
     @Test
     @DisplayName("Test for no evacuation when the pressure is above 180 and under 220")
-    public void testNoEvacuationOptimalPressure() {
+    public void testEvacuationOptimalPressure() {
         PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(219.9, 7.0));
         EvacuationMock evacuation = pressureRangeHandler.getEvacuation();
         pressureRangeHandler.checkPressure();
@@ -40,7 +40,7 @@ public class EvacuationTest {
 
     @Test
     @DisplayName("Test for no evacuation when the pressure is between 220 and 300")
-    public void testNoEvacuationHighPressure() {
+    public void testEvacuationHighPressure() {
         PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(300.0, 7.0));
         EvacuationMock evacuation = pressureRangeHandler.getEvacuation();
         pressureRangeHandler.checkPressure();
@@ -50,7 +50,7 @@ public class EvacuationTest {
 
     @Test
     @DisplayName("Test for no evacuation when the pressure is above 300 but below 500")
-    public void testNoEvacuationMaximumPressure() {
+    public void testEvacuationMaximumPressure() {
         PressureRangeHandlerMock pressureRangeHandler = new PressureRangeHandlerMock(new PressureSensorMock(300.1, 7.0));
         EvacuationMock evacuation = pressureRangeHandler.getEvacuation();
         pressureRangeHandler.checkPressure();

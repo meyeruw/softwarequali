@@ -10,12 +10,11 @@ public class ValveControlTest {
     ValveControlMock valveControlMock = new ValveControlMock();
 
     @Test
-@DisplayName("Test for the valve state when the valve is closed")
-public void testValveStatusClosed() {
-    valveControlMock.setCurrentState(ValveControlMock.ValveState.CLOSED);
-    ValveControlMock.ValveState state = valveControlMock.getValveState();
-    assertTrue(state == ValveControlMock.ValveState.OPEN ||
-               state == ValveControlMock.ValveState.CLOSED ||
-               state == ValveControlMock.ValveState.PARTIALLY_OPEN, "State should be either OPEN, CLOSED, or PARTIALLY_OPEN");
+    @DisplayName("Test if a query for the known valve states is possible")
+    public void testValveStatusClosed() {
+        ValveControlMock.ValveState state = valveControlMock.getValveState();
+        assertTrue(state == ValveControlMock.ValveState.OPEN ||
+                state == ValveControlMock.ValveState.CLOSED ||
+                state == ValveControlMock.ValveState.PARTIALLY_OPEN, "A query for the known valve states was not possible");
     }
 }

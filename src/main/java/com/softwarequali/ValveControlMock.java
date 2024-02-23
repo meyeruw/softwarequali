@@ -3,7 +3,7 @@ package com.softwarequali;
 public class ValveControlMock {
     
     public enum ValveState {
-        OPEN, CLOSED, PARTIALLY_OPEN, ERROR
+        OPEN, CLOSED, PARTIALLY_OPEN
     }
 
     private ValveState currentState;

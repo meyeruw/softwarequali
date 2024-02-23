@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class AccousticSignalTest {
+public class AcousticSignalTest {
 
     @Test
     @DisplayName("Test for the acoustic signal when the pressure is below 50")

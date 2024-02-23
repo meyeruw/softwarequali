@@ -15,26 +15,6 @@ public class StatusQueryTimeLimitTest {
 
     @Test
     @Timeout(value = 10, unit = TimeUnit.MILLISECONDS)
-    @DisplayName("Test if the status query of the pressure value of the pressure sensor needs more than 10ms to complete")
-    public void testPressureValueTimeLimit() {
-        PressureSensorMock pressureSensor = new PressureSensorMock(200.0, 7.0);
-
-        assertTrue(pressureSensor.getPressure() == 200.0,
-                "The status query of the pressure value of the pressure sensor needed longer than 10ms to complete");
-    }
-
-    @Test
-    @Timeout(value = 10, unit = TimeUnit.MILLISECONDS)
-    @DisplayName("Test if the status query of the voltage value of the pressure sensor needs more than 10ms to complete")
-    public void testVoltageValueTimeLimit() {
-        PressureSensorMock pressureSensor = new PressureSensorMock(200.0, 7.0);
-
-        assertTrue(pressureSensor.getVoltage() == 7.0,
-                "The status query of the voltage value of the pressure sensor needed longer than 10ms to complete");
-    }
-
-    @Test
-    @Timeout(value = 10, unit = TimeUnit.MILLISECONDS)
     @DisplayName("Test if the status query of the acoustic signal needs more than 10ms to complete")
     public void testAcousticSignalTimeLimit() {
         AcousticSignalMock acousticSignal = new AcousticSignalMock();
@@ -100,6 +80,26 @@ public class StatusQueryTimeLimitTest {
 
         assertTrue(valveControl.getValveState() == ValveState.CLOSED,
                 "The status query of the valve control needed longer than 10ms to complete");
+    }
+
+    @Test
+    @Timeout(value = 10, unit = TimeUnit.MILLISECONDS)
+    @DisplayName("Test if the status query of the pressure value of the pressure sensor needs more than 10ms to complete")
+    public void testPressureValueTimeLimit() {
+        PressureSensorMock pressureSensor = new PressureSensorMock(200.0, 7.0);
+
+        assertTrue(pressureSensor.getPressure() == 200.0,
+                "The status query of the pressure value of the pressure sensor needed longer than 10ms to complete");
+    }
+
+    @Test
+    @Timeout(value = 10, unit = TimeUnit.MILLISECONDS)
+    @DisplayName("Test if the status query of the voltage value of the pressure sensor needs more than 10ms to complete")
+    public void testVoltageValueTimeLimit() {
+        PressureSensorMock pressureSensor = new PressureSensorMock(200.0, 7.0);
+
+        assertTrue(pressureSensor.getVoltage() == 7.0,
+                "The status query of the voltage value of the pressure sensor needed longer than 10ms to complete");
     }
 
 }

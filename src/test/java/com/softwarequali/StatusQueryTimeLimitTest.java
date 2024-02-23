@@ -65,11 +65,11 @@ public class StatusQueryTimeLimitTest {
 
     @Test
     @Timeout(value = 10, unit = TimeUnit.MILLISECONDS)
-    @DisplayName("Test if the status query of logging needs more than 10ms to complete")
-    public void testLoggingTimeLimit() {
-        LogSenderMock logServer = new LogSenderMock();
+    @DisplayName("Test if the status query of the log sender needs more than 10ms to complete")
+    public void testLogSenderTimeLimit() {
+        LogSenderMock logSender = new LogSenderMock();
 
-        assertFalse(logServer.wasLogSent(), "The status query of logging needed longer than 10ms to complete");
+        assertFalse(logSender.wasLogSent(), "The status query of the log sender needed longer than 10ms to complete");
     }
 
     @Test
@@ -100,15 +100,6 @@ public class StatusQueryTimeLimitTest {
 
         assertTrue(valveControl.getValveState() == ValveState.CLOSED,
                 "The status query of the valve control needed longer than 10ms to complete");
-    }
-
-    @Test
-    @Timeout(value = 10, unit = TimeUnit.MILLISECONDS)
-    @DisplayName("Test if the status query of the log sender needs more than 10ms to complete")
-    public void testLogSenderTimeLimit() {
-        LogSenderMock logSender = new LogSenderMock();
-
-        assertFalse(logSender.wasLogSent(), "The status query of the log sender needed longer than 10ms to complete");
     }
 
 }

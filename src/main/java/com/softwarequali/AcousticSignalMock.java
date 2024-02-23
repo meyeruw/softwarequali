@@ -12,5 +12,5 @@ public class AcousticSignalMock {
     public boolean wasSignalSent() {
         return wasSignalSent;
     }
-    
+
 }

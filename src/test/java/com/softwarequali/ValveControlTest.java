@@ -15,6 +15,8 @@ public class ValveControlTest {
         ValveControlMock.ValveState state = valveControlMock.getValveState();
         assertTrue(state == ValveControlMock.ValveState.OPEN ||
                 state == ValveControlMock.ValveState.CLOSED ||
-                state == ValveControlMock.ValveState.PARTIALLY_OPEN, "A query for the known valve states was not possible");
+                state == ValveControlMock.ValveState.PARTIALLY_OPEN,
+                "A query for the known valve states was not possible");
     }
+
 }

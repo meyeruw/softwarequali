@@ -1,7 +1,7 @@
 package com.softwarequali;
 
 public class EvacuationMock {
-    
+
     private boolean wasEvacuationInitialized = false;
 
     public void initializeEvacuation() {

@@ -1,16 +1,16 @@
 package com.softwarequali;
 
-public class LogServerMock {
+public class LogSenderMock {
 
     private boolean wasLogSent = false;
 
-    public void sendLog() {
+    public void sendLog(String logMessage) {
         wasLogSent = true;
-        System.out.println("Log sent");
+        System.out.println("Log message sent to Log Server: " + logMessage);
     }
 
     public boolean wasLogSent() {
         return wasLogSent;
     }
-    
+
 }

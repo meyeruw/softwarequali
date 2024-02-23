@@ -12,5 +12,5 @@ public class AlarmMock {
     public boolean wasAlarmTriggered() {
         return wasAlarmTriggered;
     }
-    
+
 }

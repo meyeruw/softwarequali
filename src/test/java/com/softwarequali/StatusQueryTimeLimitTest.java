@@ -19,7 +19,8 @@ public class StatusQueryTimeLimitTest {
     public void testPressureValueTimeLimit() {
         PressureSensorMock pressureSensor = new PressureSensorMock(200.0, 7.0);
 
-        assertTrue(pressureSensor.getPressure() == 200.0, "The status query of the pressure value of the pressure sensor needed longer than 10ms to complete");
+        assertTrue(pressureSensor.getPressure() == 200.0,
+                "The status query of the pressure value of the pressure sensor needed longer than 10ms to complete");
     }
 
     @Test
@@ -28,7 +29,8 @@ public class StatusQueryTimeLimitTest {
     public void testVoltageValueTimeLimit() {
         PressureSensorMock pressureSensor = new PressureSensorMock(200.0, 7.0);
 
-        assertTrue(pressureSensor.getVoltage() == 7.0, "The status query of the voltage value of the pressure sensor needed longer than 10ms to complete");
+        assertTrue(pressureSensor.getVoltage() == 7.0,
+                "The status query of the voltage value of the pressure sensor needed longer than 10ms to complete");
     }
 
     @Test
@@ -37,7 +39,8 @@ public class StatusQueryTimeLimitTest {
     public void testAcousticSignalTimeLimit() {
         AcousticSignalMock acousticSignal = new AcousticSignalMock();
 
-        assertFalse(acousticSignal.wasSignalSent(), "The status query of the acoustic signal needed longer than 10ms to complete");
+        assertFalse(acousticSignal.wasSignalSent(),
+                "The status query of the acoustic signal needed longer than 10ms to complete");
     }
 
     @Test
@@ -46,7 +49,8 @@ public class StatusQueryTimeLimitTest {
     public void testAlarmTimeLimit() {
         AlarmMock alarm = new AlarmMock();
 
-        assertFalse(alarm.wasAlarmTriggered(), "The status query of the alarm signal needed longer than 10ms to complete");
+        assertFalse(alarm.wasAlarmTriggered(),
+                "The status query of the alarm signal needed longer than 10ms to complete");
     }
 
     @Test
@@ -55,14 +59,15 @@ public class StatusQueryTimeLimitTest {
     public void testEvacuationTimeLimit() {
         EvacuationMock evacuation = new EvacuationMock();
 
-        assertFalse(evacuation.wasEvacuationTriggered(), "The status query of the evacuation needed longer than 10ms to complete");
+        assertFalse(evacuation.wasEvacuationTriggered(),
+                "The status query of the evacuation needed longer than 10ms to complete");
     }
 
     @Test
     @Timeout(value = 10, unit = TimeUnit.MILLISECONDS)
     @DisplayName("Test if the status query of logging needs more than 10ms to complete")
     public void testLoggingTimeLimit() {
-        LogServerMock logServer = new LogServerMock();
+        LogSenderMock logServer = new LogSenderMock();
 
         assertFalse(logServer.wasLogSent(), "The status query of logging needed longer than 10ms to complete");
     }
@@ -73,7 +78,8 @@ public class StatusQueryTimeLimitTest {
     public void testNotificationManagerTimeLimit() {
         NotificationMock notification = new NotificationMock();
 
-        assertFalse(notification.wasManagerNotified(), "The status query of the notification of the manager needed longer than 10ms to complete");
+        assertFalse(notification.wasManagerNotified(),
+                "The status query of the notification of the manager needed longer than 10ms to complete");
     }
 
     @Test
@@ -82,7 +88,8 @@ public class StatusQueryTimeLimitTest {
     public void testNotificationMaintenanceTeamTimeLimit() {
         NotificationMock notification = new NotificationMock();
 
-        assertFalse(notification.wasMaintenanceTeamNotified(), "The status query of the notification of the maintenance team needed longer than 10ms to complete");
+        assertFalse(notification.wasMaintenanceTeamNotified(),
+                "The status query of the notification of the maintenance team needed longer than 10ms to complete");
     }
 
     @Test
@@ -91,6 +98,17 @@ public class StatusQueryTimeLimitTest {
     public void testValveControlTimeLimit() {
         ValveControlMock valveControl = new ValveControlMock();
 
-        assertTrue(valveControl.getValveState() == ValveState.CLOSED, "The status query of the valve control needed longer than 10ms to complete");
+        assertTrue(valveControl.getValveState() == ValveState.CLOSED,
+                "The status query of the valve control needed longer than 10ms to complete");
     }
+
+    @Test
+    @Timeout(value = 10, unit = TimeUnit.MILLISECONDS)
+    @DisplayName("Test if the status query of the log sender needs more than 10ms to complete")
+    public void testLogSenderTimeLimit() {
+        LogSenderMock logSender = new LogSenderMock();
+
+        assertFalse(logSender.wasLogSent(), "The status query of the log sender needed longer than 10ms to complete");
+    }
+
 }

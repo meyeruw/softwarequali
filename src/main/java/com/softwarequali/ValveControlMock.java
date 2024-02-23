@@ -1,7 +1,7 @@
 package com.softwarequali;
 
 public class ValveControlMock {
-    
+
     public enum ValveState {
         OPEN, CLOSED, PARTIALLY_OPEN
     }
@@ -19,4 +19,5 @@ public class ValveControlMock {
     public ValveState getValveState() {
         return currentState;
     }
+
 }
